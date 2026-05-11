@@ -243,7 +243,7 @@ describe("channel-streaming", () => {
         entry: { streaming: { progress: { label: false } } },
         lines: line ? [line] : [],
       }),
-    ).toBe("🩹 1 modified; extensions/discord/src/monitor/message-handler.draft-preview.ts");
+    ).toBe("🩹 1 modified; extensions/discord/src/monitor/message-handler.draft-prev…");
   });
 
   it("bounds progress draft line length to reduce edit reflow", () => {
@@ -253,7 +253,7 @@ describe("channel-streaming", () => {
         lines: ["x".repeat(160)],
         formatLine: (line) => `\`${line}\``,
       }),
-    ).toBe(`Shelling\n• \`${"x".repeat(107)}…\``);
+    ).toBe(`Shelling\n• \`${"x".repeat(71)}…\``);
   });
 
   it("keeps compacted raw progress lines from leaking unmatched markdown backticks", () => {
@@ -274,9 +274,7 @@ describe("channel-streaming", () => {
       lines: line ? [line] : [],
     });
 
-    expect(text).toBe(
-      "Shelling\n🛠️ run node script…/some/really/deep/path/that/keeps/going/and/going/index…",
-    );
+    expect(text).toBe("Shelling\n🛠️ run node script…th/that/keeps/going/and/going/index…");
     expect(text.match(/`/g) ?? []).toHaveLength(0);
   });
 
