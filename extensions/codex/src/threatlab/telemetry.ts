@@ -102,11 +102,17 @@ export function detectThreatSignals(event: ThreatTelemetryEvent): ThreatRiskSign
   ) {
     signals.add("developerInstructionOverride");
   }
-  if (
-    event.stage === "before_tool_call" &&
-    matchesAny(haystack, ["approval", "sandbox", "escalat", "destructive", "shell", "secret"])
-  ) {
-    signals.add("unsafeToolExecution");
+  // Structured check: inspect event properties directly before falling back to string matching
+  // This avoids false positives from stringified nested objects (Gemini review: brittle string search)
+  if (event.stage === "before_tool_call") {
+    const toolName = typeof event.data?.toolName === "string" ? event.data.toolName.toLowerCase() : "";
+    const hasRiskyTool = /bash|shell|exec|eval|spawn|rm|sudo|curl|wget/.test(toolName);
+    if (
+      hasRiskyTool ||
+      matchesAny(haystack, ["approval", "sandbox", "escalat", "destructive", "shell", "secret"])
+    ) {
+      signals.add("unsafeToolExecution");
+    }
   }
   if (
     matchesAny(haystack, [
@@ -122,11 +128,14 @@ export function detectThreatSignals(event: ThreatTelemetryEvent): ThreatRiskSign
   if (matchesAny(haystack, ["call yourself", "spawn loop", "recursive", "repeat until"])) {
     signals.add("recursiveEscalation");
   }
-  if (
-    event.stage === "dynamic_tool_result" &&
-    matchesAny(haystack, ["ignore previous", "<system", "```system", "developer instruction"])
-  ) {
-    signals.add("maliciousOutputPropagation");
+  if (event.stage === "dynamic_tool_result") {
+    // Check structured toolResultText field directly — more reliable than stringifying the whole event
+    const resultText = typeof event.data?.toolResultText === "string"
+      ? event.data.toolResultText.toLowerCase()
+      : haystack;
+    if (matchesAny(resultText, ["ignore previous", "<system", "```system", "developer instruction"])) {
+      signals.add("maliciousOutputPropagation");
+    }
   }
   if (matchesAny(haystack, ["role: system", "<system", "</system>", "assistant to=functions"])) {
     signals.add("instructionConfusion");

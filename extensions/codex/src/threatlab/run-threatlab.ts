@@ -395,7 +395,10 @@ function printBenchmarkSummary(report: BenchmarkReport): void {
   console.log("\n" + "-".repeat(80) + "\n");
 }
 
-function printRegressionSummary(comparison: any, regression: any): void {
+function printRegressionSummary(
+  comparison: BenchmarkComparison,
+  regression: { hasRegression: boolean; severity: string; details: string[] },
+): void {
   console.log("\n" + "-".repeat(80));
   console.log("REGRESSION ANALYSIS");
   console.log("-".repeat(80));
@@ -464,6 +467,8 @@ function printRegressionSummary(comparison: any, regression: any): void {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2);
+const outputResearchPackage = args.includes("--output-research-package");
+const filteredArgs = args.filter((a) => a !== "--output-research-package");
   const command = args[0];
   const compareWith = args[1];
 

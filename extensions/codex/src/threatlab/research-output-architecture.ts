@@ -13,6 +13,22 @@ import type { IntegrityDegradationReport, ObservabilityMetrics, PropagationAnaly
 // RESEARCH OUTPUT TYPES
 // ============================================================================
 
+
+/** Simple mulberry32 seeded PRNG — produces deterministic floats in [0, 1).
+ *  Using a fixed seed derived from the scenario index ensures benchmark
+ *  reproducibility across runs (addresses Gemini review: Math.random() non-determinism). */
+function seededRandom(seed: number): () => number {
+  let s = seed >>> 0;
+  return function () {
+    s += 0x6d2b79f5;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+
 export interface RuntimeThreatMatrix {
   generatedAt: number;
   runtimeVersion: string;
@@ -572,7 +588,7 @@ function generateCrossLayerEscalationGraph(scenarios: CrossLayerAttackScenario[]
       layers: s.expectedPropagationPath,
       lengthSteps: s.expectedPropagationPath.length,
       amplification: s.expectedAmplification,
-      probability: 0.6 + Math.random() * 0.3,
+      probability: 0.6 + seededRandom(s.expectedPropagationPath.length + s.expectedAmplification * 1000 | 0)() * 0.3,
       severity: s.severity,
     })),
     chokepoints: [],

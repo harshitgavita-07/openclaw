@@ -519,7 +519,9 @@ function scoreToolLayer(
   for (const event of toolEvents) {
     const resultText = event.data.toolResultText as string || "";
     // Access metadata with a loose any cast because TelemetryEvent data is generic
-    const isError = (event.data as any).metadata?.isError as boolean || false;
+    // Use the typed metadata field defined on ThreatTelemetryEvent instead of casting to any
+    const metadata = event.data.metadata as Record<string, unknown> | undefined;
+    const isError = (metadata?.isError === true);
 
     const hasErrorKeywords = /failed|error|denied|exception|abort/i.test(
       resultText,

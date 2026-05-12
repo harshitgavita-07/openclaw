@@ -228,11 +228,14 @@ function generateBenchmarkId(params: {
   return `bm_${runtimeVersion}_${scenarioId.slice(0, 8)}_${payloadChecksum.slice(0, 8)}_${checksum}`;
 }
 
+/** Minimum absolute difference in average integrity scores to classify a trend
+ *  as improving or degrading rather than stable. */
+const TREND_STABILITY_THRESHOLD = 0.05;
+
 function generateExecutionId(): string {
-  // Deterministic execution ID based on timestamp + random
-  const timestamp = Date.now().toString(16);
-  const random = Math.floor(Math.random() * 1000000).toString(16).padStart(6, "0");
-  return `exec_${timestamp}_${random}`;
+  // crypto.randomUUID() is cryptographically strong and guaranteed unique —
+  // avoids the collision risk of Date.now() + Math.random() in high-freq runs.
+  return `exec_${crypto.randomUUID()}`;
 }
 
 // ============================================================================
@@ -1036,7 +1039,7 @@ export async function runThreatBenchmarkSuite(params: {
     deterministicMode,
   } = params;
 
-  const reportId = `report_${Date.now()}`;
+  const reportId = `report_${crypto.randomUUID()}`;
   const generatedAt = Date.now();
   const benchmarks: BenchmarkResult[] = [];
   let completedScenarios = 0;
@@ -1210,7 +1213,7 @@ export function compareBenchmarkRuns(
   baseline: BenchmarkReport,
   current: BenchmarkReport,
 ): BenchmarkComparison {
-  const comparisonId = `comp_${Date.now()}`;
+  const comparisonId = `comp_${crypto.randomUUID()}`;
   const regressions: BenchmarkComparison["regressions"] = [];
   const improvements: BenchmarkComparison["improvements"] = [];
 
@@ -1252,7 +1255,7 @@ export function compareBenchmarkRuns(
   const baselineAvg = baseline.summary.averageIntegrityScore;
   const currentAvg = current.summary.averageIntegrityScore;
   const overallTrend =
-    Math.abs(currentAvg - baselineAvg) < 0.05
+    Math.abs(currentAvg - baselineAvg) < TREND_STABILITY_THRESHOLD
       ? "stable"
       : currentAvg > baselineAvg
         ? "improving"

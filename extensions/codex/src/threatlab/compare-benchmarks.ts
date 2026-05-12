@@ -15,7 +15,10 @@ import type {
   BenchmarkComparison,
 } from "./runtime-attack-orchestrator.js";
 import {
-  compareBenchmarkRuns,
+
+
+/** Minimum absolute shift to classify a layer trend as worsening or improving rather than stable. */
+const TREND_STABILITY_THRESHOLD = 0.05;  compareBenchmarkRuns,
   detectIntegrityRegression,
 } from "./runtime-attack-orchestrator.js";
 
@@ -33,7 +36,7 @@ export function compareBenchmarkRunsWithReport(
   const comparison = compareBenchmarkRuns(baseline, current);
 
   const summary: ComparisonSummary = {
-    comparisonId: `cmp_${Date.now()}`,
+    comparisonId: `cmp_${crypto.randomUUID()}`,
     baselineId: baseline.reportId,
     currentId: current.reportId,
     baselineTimestamp: baseline.generatedAt,
@@ -226,7 +229,7 @@ function analyzeLayerVulnerabilityShift(
       const currentAffected = (currentFreq[layer] || 0) / Math.max(currBench, 1);
       const shift = currentAffected - baselineAffected;
 
-       const trend = shift > 0.05 ? "worsening" : shift < -0.05 ? "improving" : "stable";
+       const trend = shift > TREND_STABILITY_THRESHOLD ? "worsening" : shift < -TREND_STABILITY_THRESHOLD ? "improving" : "stable";
        // Cast to the explicit union type expected by LayerVulnerabilityShift
        const typedTrend = trend as "worsening" | "improving" | "stable";
        return {
@@ -303,7 +306,7 @@ export function analyzeTrendAcrossRuns(
   const denominator = xValues.reduce((sum, x) => sum + Math.pow(x - xMean, 2), 0);
 
   const slope = denominator !== 0 ? numerator / denominator : 0;
-  const trend = slope > 0.05 ? "improving" : slope < -0.05 ? "degrading" : "stable";
+  const trend = slope > TREND_STABILITY_THRESHOLD ? "improving" : slope < -TREND_STABILITY_THRESHOLD ? "degrading" : "stable";
 
   return {
     reportCount: n,
