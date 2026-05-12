@@ -19,6 +19,9 @@ permissions: {}
 
 jobs:
   auto-response:
+    # Skip in forks: GH_APP secrets are only available in the canonical repo.
+    # Barnacle auto-response is a canonical-repo feature; forks have no issues to triage.
+    if: github.repository == 'openclaw/openclaw'
     permissions:
       contents: read
       issues: write

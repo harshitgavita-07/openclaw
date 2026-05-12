@@ -15,12 +15,12 @@ import type {
   BenchmarkComparison,
 } from "./runtime-attack-orchestrator.js";
 import {
-
-
-/** Minimum absolute shift to classify a layer trend as worsening or improving rather than stable. */
-const TREND_STABILITY_THRESHOLD = 0.05;  compareBenchmarkRuns,
+  compareBenchmarkRuns,
   detectIntegrityRegression,
 } from "./runtime-attack-orchestrator.js";
+
+/** Minimum absolute shift to classify a layer trend as worsening or improving rather than stable. */
+const TREND_STABILITY_THRESHOLD = 0.05;
 
 // ============================================================================
 // BENCHMARK COMPARISON WITH REPORT GENERATION

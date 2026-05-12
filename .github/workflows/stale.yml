@@ -38,6 +38,8 @@ permissions: {}
 
 jobs:
   stale:
+    # Skip in forks: GH_APP secrets are only available in the canonical repo.
+    if: github.repository == 'openclaw/openclaw'
     if: ${{ github.event_name != 'workflow_dispatch' || inputs.backfill_stale_closures != true }}
     permissions:
       issues: write

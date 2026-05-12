@@ -20,6 +20,7 @@ import type {
 } from "./runtime-score-engine.js";
 import type {
   AttackType,
+  BenchmarkComparison,
   BenchmarkReport,
 } from "./runtime-attack-orchestrator.js";
 import {
