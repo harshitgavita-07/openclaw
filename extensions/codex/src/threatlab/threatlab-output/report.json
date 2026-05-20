@@ -1,6 +1,6 @@
 {
-  "reportId": "report_1778506605439",
-  "generatedAt": "2026-05-11T13:36:45.439Z",
+  "reportId": "report_7e489d7d03d4767a",
+  "generatedAt": "2023-11-14T22:13:20.000Z",
   "runtimeVersion": "1.0.0",
   "benchmarkStats": {
     "total": 90,
@@ -471,7 +471,7 @@
   ],
   "scenarioResults": [
     {
-      "benchmarkId": "bm_1.0.0_prompt_i_determin_33537855",
+      "benchmarkId": "bm_1.0.0_prompt_i_determin_c02176c12a4afa3741b6f7014e77a52420fb7926def6ca224836c6e31f98e060",
       "scenario": "Basic Prompt Injection",
       "scenarioId": "prompt_injection_basic",
       "attackType": "single_turn",
@@ -503,7 +503,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_i_determin_33537855",
+      "benchmarkId": "bm_1.0.0_prompt_i_determin_c02176c12a4afa3741b6f7014e77a52420fb7926def6ca224836c6e31f98e060",
       "scenario": "Basic Prompt Injection",
       "scenarioId": "prompt_injection_basic",
       "attackType": "multi_turn_persistence",
@@ -535,7 +535,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_i_determin_33537855",
+      "benchmarkId": "bm_1.0.0_prompt_i_determin_c02176c12a4afa3741b6f7014e77a52420fb7926def6ca224836c6e31f98e060",
       "scenario": "Basic Prompt Injection",
       "scenarioId": "prompt_injection_basic",
       "attackType": "tool_result_injection",
@@ -567,7 +567,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_i_determin_33537855",
+      "benchmarkId": "bm_1.0.0_prompt_i_determin_c02176c12a4afa3741b6f7014e77a52420fb7926def6ca224836c6e31f98e060",
       "scenario": "Basic Prompt Injection",
       "scenarioId": "prompt_injection_basic",
       "attackType": "context_poisoning",
@@ -599,7 +599,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_i_determin_33537855",
+      "benchmarkId": "bm_1.0.0_prompt_i_determin_c02176c12a4afa3741b6f7014e77a52420fb7926def6ca224836c6e31f98e060",
       "scenario": "Basic Prompt Injection",
       "scenarioId": "prompt_injection_basic",
       "attackType": "recursive_override",
@@ -631,7 +631,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_i_determin_33537855",
+      "benchmarkId": "bm_1.0.0_prompt_i_determin_c02176c12a4afa3741b6f7014e77a52420fb7926def6ca224836c6e31f98e060",
       "scenario": "Basic Prompt Injection",
       "scenarioId": "prompt_injection_basic",
       "attackType": "delayed_replay",
@@ -663,7 +663,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_recursiv_determin_47b4b497",
+      "benchmarkId": "bm_1.0.0_recursiv_determin_9d758dc3d10554b2fb175c315d425c03150d7e971f56d614045c803b7c7a0a30",
       "scenario": "Recursive Override Escalation",
       "scenarioId": "recursive_override_escalation",
       "attackType": "single_turn",
@@ -695,7 +695,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_recursiv_determin_47b4b497",
+      "benchmarkId": "bm_1.0.0_recursiv_determin_9d758dc3d10554b2fb175c315d425c03150d7e971f56d614045c803b7c7a0a30",
       "scenario": "Recursive Override Escalation",
       "scenarioId": "recursive_override_escalation",
       "attackType": "multi_turn_persistence",
@@ -727,7 +727,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_recursiv_determin_47b4b497",
+      "benchmarkId": "bm_1.0.0_recursiv_determin_9d758dc3d10554b2fb175c315d425c03150d7e971f56d614045c803b7c7a0a30",
       "scenario": "Recursive Override Escalation",
       "scenarioId": "recursive_override_escalation",
       "attackType": "tool_result_injection",
@@ -759,7 +759,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_recursiv_determin_47b4b497",
+      "benchmarkId": "bm_1.0.0_recursiv_determin_9d758dc3d10554b2fb175c315d425c03150d7e971f56d614045c803b7c7a0a30",
       "scenario": "Recursive Override Escalation",
       "scenarioId": "recursive_override_escalation",
       "attackType": "context_poisoning",
@@ -791,7 +791,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_recursiv_determin_47b4b497",
+      "benchmarkId": "bm_1.0.0_recursiv_determin_9d758dc3d10554b2fb175c315d425c03150d7e971f56d614045c803b7c7a0a30",
       "scenario": "Recursive Override Escalation",
       "scenarioId": "recursive_override_escalation",
       "attackType": "recursive_override",
@@ -823,7 +823,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_recursiv_determin_47b4b497",
+      "benchmarkId": "bm_1.0.0_recursiv_determin_9d758dc3d10554b2fb175c315d425c03150d7e971f56d614045c803b7c7a0a30",
       "scenario": "Recursive Override Escalation",
       "scenarioId": "recursive_override_escalation",
       "attackType": "delayed_replay",
@@ -855,7 +855,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_632d991e",
+      "benchmarkId": "bm_1.0.0_context__determin_5dcfe6e1da81100b63030736909a1d4c9aa1fef9b8f2051c6863b26d9362e893",
       "scenario": "Context Message Poisoning",
       "scenarioId": "context_poisoning_injection",
       "attackType": "single_turn",
@@ -887,7 +887,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_632d991e",
+      "benchmarkId": "bm_1.0.0_context__determin_5dcfe6e1da81100b63030736909a1d4c9aa1fef9b8f2051c6863b26d9362e893",
       "scenario": "Context Message Poisoning",
       "scenarioId": "context_poisoning_injection",
       "attackType": "multi_turn_persistence",
@@ -919,7 +919,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_632d991e",
+      "benchmarkId": "bm_1.0.0_context__determin_5dcfe6e1da81100b63030736909a1d4c9aa1fef9b8f2051c6863b26d9362e893",
       "scenario": "Context Message Poisoning",
       "scenarioId": "context_poisoning_injection",
       "attackType": "tool_result_injection",
@@ -951,7 +951,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_632d991e",
+      "benchmarkId": "bm_1.0.0_context__determin_5dcfe6e1da81100b63030736909a1d4c9aa1fef9b8f2051c6863b26d9362e893",
       "scenario": "Context Message Poisoning",
       "scenarioId": "context_poisoning_injection",
       "attackType": "context_poisoning",
@@ -983,7 +983,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_632d991e",
+      "benchmarkId": "bm_1.0.0_context__determin_5dcfe6e1da81100b63030736909a1d4c9aa1fef9b8f2051c6863b26d9362e893",
       "scenario": "Context Message Poisoning",
       "scenarioId": "context_poisoning_injection",
       "attackType": "recursive_override",
@@ -1015,7 +1015,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_632d991e",
+      "benchmarkId": "bm_1.0.0_context__determin_5dcfe6e1da81100b63030736909a1d4c9aa1fef9b8f2051c6863b26d9362e893",
       "scenario": "Context Message Poisoning",
       "scenarioId": "context_poisoning_injection",
       "attackType": "delayed_replay",
@@ -1047,7 +1047,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_res_determin_49c139eb",
+      "benchmarkId": "bm_1.0.0_tool_res_determin_5f4eea9329f8bae829ef33122b8a134f0d77e741d6dbc1b2bc2969ab7fa54280",
       "scenario": "Tool Result Output Injection",
       "scenarioId": "tool_result_injection_attack",
       "attackType": "single_turn",
@@ -1079,7 +1079,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_res_determin_49c139eb",
+      "benchmarkId": "bm_1.0.0_tool_res_determin_5f4eea9329f8bae829ef33122b8a134f0d77e741d6dbc1b2bc2969ab7fa54280",
       "scenario": "Tool Result Output Injection",
       "scenarioId": "tool_result_injection_attack",
       "attackType": "multi_turn_persistence",
@@ -1111,7 +1111,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_res_determin_49c139eb",
+      "benchmarkId": "bm_1.0.0_tool_res_determin_5f4eea9329f8bae829ef33122b8a134f0d77e741d6dbc1b2bc2969ab7fa54280",
       "scenario": "Tool Result Output Injection",
       "scenarioId": "tool_result_injection_attack",
       "attackType": "tool_result_injection",
@@ -1143,7 +1143,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_res_determin_49c139eb",
+      "benchmarkId": "bm_1.0.0_tool_res_determin_5f4eea9329f8bae829ef33122b8a134f0d77e741d6dbc1b2bc2969ab7fa54280",
       "scenario": "Tool Result Output Injection",
       "scenarioId": "tool_result_injection_attack",
       "attackType": "context_poisoning",
@@ -1175,7 +1175,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_res_determin_49c139eb",
+      "benchmarkId": "bm_1.0.0_tool_res_determin_5f4eea9329f8bae829ef33122b8a134f0d77e741d6dbc1b2bc2969ab7fa54280",
       "scenario": "Tool Result Output Injection",
       "scenarioId": "tool_result_injection_attack",
       "attackType": "recursive_override",
@@ -1207,7 +1207,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_res_determin_49c139eb",
+      "benchmarkId": "bm_1.0.0_tool_res_determin_5f4eea9329f8bae829ef33122b8a134f0d77e741d6dbc1b2bc2969ab7fa54280",
       "scenario": "Tool Result Output Injection",
       "scenarioId": "tool_result_injection_attack",
       "attackType": "delayed_replay",
@@ -1239,7 +1239,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_memory_p_determin_7f3c16a3",
+      "benchmarkId": "bm_1.0.0_memory_p_determin_1a2928ac4a6d31395548458416a7ec5be677b23525ed77dabba66634b7043c81",
       "scenario": "Cross-Turn Memory Persistence",
       "scenarioId": "memory_persistence_injection",
       "attackType": "single_turn",
@@ -1271,7 +1271,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_memory_p_determin_7f3c16a3",
+      "benchmarkId": "bm_1.0.0_memory_p_determin_1a2928ac4a6d31395548458416a7ec5be677b23525ed77dabba66634b7043c81",
       "scenario": "Cross-Turn Memory Persistence",
       "scenarioId": "memory_persistence_injection",
       "attackType": "multi_turn_persistence",
@@ -1303,7 +1303,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_memory_p_determin_7f3c16a3",
+      "benchmarkId": "bm_1.0.0_memory_p_determin_1a2928ac4a6d31395548458416a7ec5be677b23525ed77dabba66634b7043c81",
       "scenario": "Cross-Turn Memory Persistence",
       "scenarioId": "memory_persistence_injection",
       "attackType": "tool_result_injection",
@@ -1335,7 +1335,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_memory_p_determin_7f3c16a3",
+      "benchmarkId": "bm_1.0.0_memory_p_determin_1a2928ac4a6d31395548458416a7ec5be677b23525ed77dabba66634b7043c81",
       "scenario": "Cross-Turn Memory Persistence",
       "scenarioId": "memory_persistence_injection",
       "attackType": "context_poisoning",
@@ -1367,7 +1367,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_memory_p_determin_7f3c16a3",
+      "benchmarkId": "bm_1.0.0_memory_p_determin_1a2928ac4a6d31395548458416a7ec5be677b23525ed77dabba66634b7043c81",
       "scenario": "Cross-Turn Memory Persistence",
       "scenarioId": "memory_persistence_injection",
       "attackType": "recursive_override",
@@ -1399,7 +1399,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_memory_p_determin_7f3c16a3",
+      "benchmarkId": "bm_1.0.0_memory_p_determin_1a2928ac4a6d31395548458416a7ec5be677b23525ed77dabba66634b7043c81",
       "scenario": "Cross-Turn Memory Persistence",
       "scenarioId": "memory_persistence_injection",
       "attackType": "delayed_replay",
@@ -1431,7 +1431,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_multi_tu_determin_1d3ae833",
+      "benchmarkId": "bm_1.0.0_multi_tu_determin_877243c4f0be9832d7b0c6e68ba8e531ab1c590997718c3ada0e4760d6f91724",
       "scenario": "Multi-Turn Escalation Attack",
       "scenarioId": "multi_turn_escalation",
       "attackType": "single_turn",
@@ -1463,7 +1463,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_multi_tu_determin_1d3ae833",
+      "benchmarkId": "bm_1.0.0_multi_tu_determin_877243c4f0be9832d7b0c6e68ba8e531ab1c590997718c3ada0e4760d6f91724",
       "scenario": "Multi-Turn Escalation Attack",
       "scenarioId": "multi_turn_escalation",
       "attackType": "multi_turn_persistence",
@@ -1495,7 +1495,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_multi_tu_determin_1d3ae833",
+      "benchmarkId": "bm_1.0.0_multi_tu_determin_877243c4f0be9832d7b0c6e68ba8e531ab1c590997718c3ada0e4760d6f91724",
       "scenario": "Multi-Turn Escalation Attack",
       "scenarioId": "multi_turn_escalation",
       "attackType": "tool_result_injection",
@@ -1527,7 +1527,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_multi_tu_determin_1d3ae833",
+      "benchmarkId": "bm_1.0.0_multi_tu_determin_877243c4f0be9832d7b0c6e68ba8e531ab1c590997718c3ada0e4760d6f91724",
       "scenario": "Multi-Turn Escalation Attack",
       "scenarioId": "multi_turn_escalation",
       "attackType": "context_poisoning",
@@ -1559,7 +1559,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_multi_tu_determin_1d3ae833",
+      "benchmarkId": "bm_1.0.0_multi_tu_determin_877243c4f0be9832d7b0c6e68ba8e531ab1c590997718c3ada0e4760d6f91724",
       "scenario": "Multi-Turn Escalation Attack",
       "scenarioId": "multi_turn_escalation",
       "attackType": "recursive_override",
@@ -1591,7 +1591,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_multi_tu_determin_1d3ae833",
+      "benchmarkId": "bm_1.0.0_multi_tu_determin_877243c4f0be9832d7b0c6e68ba8e531ab1c590997718c3ada0e4760d6f91724",
       "scenario": "Multi-Turn Escalation Attack",
       "scenarioId": "multi_turn_escalation",
       "attackType": "delayed_replay",
@@ -1623,7 +1623,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_hidden_d_determin_18b9793c",
+      "benchmarkId": "bm_1.0.0_hidden_d_determin_ec3a4fe80e9bb4c32b88fd1c80ce2746001419f5a4485e348717bb5321ad32d1",
       "scenario": "Hidden Directive Attack",
       "scenarioId": "hidden_directive_injection",
       "attackType": "single_turn",
@@ -1655,7 +1655,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_hidden_d_determin_18b9793c",
+      "benchmarkId": "bm_1.0.0_hidden_d_determin_ec3a4fe80e9bb4c32b88fd1c80ce2746001419f5a4485e348717bb5321ad32d1",
       "scenario": "Hidden Directive Attack",
       "scenarioId": "hidden_directive_injection",
       "attackType": "multi_turn_persistence",
@@ -1687,7 +1687,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_hidden_d_determin_18b9793c",
+      "benchmarkId": "bm_1.0.0_hidden_d_determin_ec3a4fe80e9bb4c32b88fd1c80ce2746001419f5a4485e348717bb5321ad32d1",
       "scenario": "Hidden Directive Attack",
       "scenarioId": "hidden_directive_injection",
       "attackType": "tool_result_injection",
@@ -1719,7 +1719,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_hidden_d_determin_18b9793c",
+      "benchmarkId": "bm_1.0.0_hidden_d_determin_ec3a4fe80e9bb4c32b88fd1c80ce2746001419f5a4485e348717bb5321ad32d1",
       "scenario": "Hidden Directive Attack",
       "scenarioId": "hidden_directive_injection",
       "attackType": "context_poisoning",
@@ -1751,7 +1751,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_hidden_d_determin_18b9793c",
+      "benchmarkId": "bm_1.0.0_hidden_d_determin_ec3a4fe80e9bb4c32b88fd1c80ce2746001419f5a4485e348717bb5321ad32d1",
       "scenario": "Hidden Directive Attack",
       "scenarioId": "hidden_directive_injection",
       "attackType": "recursive_override",
@@ -1783,7 +1783,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_hidden_d_determin_18b9793c",
+      "benchmarkId": "bm_1.0.0_hidden_d_determin_ec3a4fe80e9bb4c32b88fd1c80ce2746001419f5a4485e348717bb5321ad32d1",
       "scenario": "Hidden Directive Attack",
       "scenarioId": "hidden_directive_injection",
       "attackType": "delayed_replay",
@@ -1815,7 +1815,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_233e55f3",
+      "benchmarkId": "bm_1.0.0_context__determin_eac48a009a91107687a1f46b3e56739df1bfec61578a7273475f36a3e9b17b04",
       "scenario": "Context Growth Anomaly Exploit",
       "scenarioId": "context_growth_exploit",
       "attackType": "single_turn",
@@ -1847,7 +1847,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_233e55f3",
+      "benchmarkId": "bm_1.0.0_context__determin_eac48a009a91107687a1f46b3e56739df1bfec61578a7273475f36a3e9b17b04",
       "scenario": "Context Growth Anomaly Exploit",
       "scenarioId": "context_growth_exploit",
       "attackType": "multi_turn_persistence",
@@ -1879,7 +1879,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_233e55f3",
+      "benchmarkId": "bm_1.0.0_context__determin_eac48a009a91107687a1f46b3e56739df1bfec61578a7273475f36a3e9b17b04",
       "scenario": "Context Growth Anomaly Exploit",
       "scenarioId": "context_growth_exploit",
       "attackType": "tool_result_injection",
@@ -1911,7 +1911,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_233e55f3",
+      "benchmarkId": "bm_1.0.0_context__determin_eac48a009a91107687a1f46b3e56739df1bfec61578a7273475f36a3e9b17b04",
       "scenario": "Context Growth Anomaly Exploit",
       "scenarioId": "context_growth_exploit",
       "attackType": "context_poisoning",
@@ -1943,7 +1943,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_233e55f3",
+      "benchmarkId": "bm_1.0.0_context__determin_eac48a009a91107687a1f46b3e56739df1bfec61578a7273475f36a3e9b17b04",
       "scenario": "Context Growth Anomaly Exploit",
       "scenarioId": "context_growth_exploit",
       "attackType": "recursive_override",
@@ -1975,7 +1975,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_233e55f3",
+      "benchmarkId": "bm_1.0.0_context__determin_eac48a009a91107687a1f46b3e56739df1bfec61578a7273475f36a3e9b17b04",
       "scenario": "Context Growth Anomaly Exploit",
       "scenarioId": "context_growth_exploit",
       "attackType": "delayed_replay",
@@ -2007,7 +2007,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_trust_sc_determin_688716e5",
+      "benchmarkId": "bm_1.0.0_trust_sc_determin_0e9e658493056ea05b17b666590302656905596dcd86ab4f6f414c21113729d9",
       "scenario": "Trust Score Manipulation",
       "scenarioId": "trust_score_manipulation",
       "attackType": "single_turn",
@@ -2039,7 +2039,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_trust_sc_determin_688716e5",
+      "benchmarkId": "bm_1.0.0_trust_sc_determin_0e9e658493056ea05b17b666590302656905596dcd86ab4f6f414c21113729d9",
       "scenario": "Trust Score Manipulation",
       "scenarioId": "trust_score_manipulation",
       "attackType": "multi_turn_persistence",
@@ -2071,7 +2071,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_trust_sc_determin_688716e5",
+      "benchmarkId": "bm_1.0.0_trust_sc_determin_0e9e658493056ea05b17b666590302656905596dcd86ab4f6f414c21113729d9",
       "scenario": "Trust Score Manipulation",
       "scenarioId": "trust_score_manipulation",
       "attackType": "tool_result_injection",
@@ -2103,7 +2103,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_trust_sc_determin_688716e5",
+      "benchmarkId": "bm_1.0.0_trust_sc_determin_0e9e658493056ea05b17b666590302656905596dcd86ab4f6f414c21113729d9",
       "scenario": "Trust Score Manipulation",
       "scenarioId": "trust_score_manipulation",
       "attackType": "context_poisoning",
@@ -2135,7 +2135,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_trust_sc_determin_688716e5",
+      "benchmarkId": "bm_1.0.0_trust_sc_determin_0e9e658493056ea05b17b666590302656905596dcd86ab4f6f414c21113729d9",
       "scenario": "Trust Score Manipulation",
       "scenarioId": "trust_score_manipulation",
       "attackType": "recursive_override",
@@ -2167,7 +2167,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_trust_sc_determin_688716e5",
+      "benchmarkId": "bm_1.0.0_trust_sc_determin_0e9e658493056ea05b17b666590302656905596dcd86ab4f6f414c21113729d9",
       "scenario": "Trust Score Manipulation",
       "scenarioId": "trust_score_manipulation",
       "attackType": "delayed_replay",
@@ -2199,7 +2199,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_event_or_determin_7e871ad6",
+      "benchmarkId": "bm_1.0.0_event_or_determin_1926f1d5135f31bfe8ba97ad61e8bd452aac02c380be6a100505d9591f5447f5",
       "scenario": "Event Ordering Attack",
       "scenarioId": "event_ordering_attack",
       "attackType": "single_turn",
@@ -2231,7 +2231,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_event_or_determin_7e871ad6",
+      "benchmarkId": "bm_1.0.0_event_or_determin_1926f1d5135f31bfe8ba97ad61e8bd452aac02c380be6a100505d9591f5447f5",
       "scenario": "Event Ordering Attack",
       "scenarioId": "event_ordering_attack",
       "attackType": "multi_turn_persistence",
@@ -2263,7 +2263,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_event_or_determin_7e871ad6",
+      "benchmarkId": "bm_1.0.0_event_or_determin_1926f1d5135f31bfe8ba97ad61e8bd452aac02c380be6a100505d9591f5447f5",
       "scenario": "Event Ordering Attack",
       "scenarioId": "event_ordering_attack",
       "attackType": "tool_result_injection",
@@ -2295,7 +2295,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_event_or_determin_7e871ad6",
+      "benchmarkId": "bm_1.0.0_event_or_determin_1926f1d5135f31bfe8ba97ad61e8bd452aac02c380be6a100505d9591f5447f5",
       "scenario": "Event Ordering Attack",
       "scenarioId": "event_ordering_attack",
       "attackType": "context_poisoning",
@@ -2327,7 +2327,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_event_or_determin_7e871ad6",
+      "benchmarkId": "bm_1.0.0_event_or_determin_1926f1d5135f31bfe8ba97ad61e8bd452aac02c380be6a100505d9591f5447f5",
       "scenario": "Event Ordering Attack",
       "scenarioId": "event_ordering_attack",
       "attackType": "recursive_override",
@@ -2359,7 +2359,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_event_or_determin_7e871ad6",
+      "benchmarkId": "bm_1.0.0_event_or_determin_1926f1d5135f31bfe8ba97ad61e8bd452aac02c380be6a100505d9591f5447f5",
       "scenario": "Event Ordering Attack",
       "scenarioId": "event_ordering_attack",
       "attackType": "delayed_replay",
@@ -2391,7 +2391,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_approval_determin_48fd59b2",
+      "benchmarkId": "bm_1.0.0_approval_determin_d72940a409085ef3ffac389675dfae046c769a42c16d6a6dd84f30bcb2a6e958",
       "scenario": "Approval Mode Degradation",
       "scenarioId": "approval_mode_bypass",
       "attackType": "single_turn",
@@ -2423,7 +2423,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_approval_determin_48fd59b2",
+      "benchmarkId": "bm_1.0.0_approval_determin_d72940a409085ef3ffac389675dfae046c769a42c16d6a6dd84f30bcb2a6e958",
       "scenario": "Approval Mode Degradation",
       "scenarioId": "approval_mode_bypass",
       "attackType": "multi_turn_persistence",
@@ -2455,7 +2455,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_approval_determin_48fd59b2",
+      "benchmarkId": "bm_1.0.0_approval_determin_d72940a409085ef3ffac389675dfae046c769a42c16d6a6dd84f30bcb2a6e958",
       "scenario": "Approval Mode Degradation",
       "scenarioId": "approval_mode_bypass",
       "attackType": "tool_result_injection",
@@ -2487,7 +2487,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_approval_determin_48fd59b2",
+      "benchmarkId": "bm_1.0.0_approval_determin_d72940a409085ef3ffac389675dfae046c769a42c16d6a6dd84f30bcb2a6e958",
       "scenario": "Approval Mode Degradation",
       "scenarioId": "approval_mode_bypass",
       "attackType": "context_poisoning",
@@ -2519,7 +2519,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_approval_determin_48fd59b2",
+      "benchmarkId": "bm_1.0.0_approval_determin_d72940a409085ef3ffac389675dfae046c769a42c16d6a6dd84f30bcb2a6e958",
       "scenario": "Approval Mode Degradation",
       "scenarioId": "approval_mode_bypass",
       "attackType": "recursive_override",
@@ -2551,7 +2551,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_approval_determin_48fd59b2",
+      "benchmarkId": "bm_1.0.0_approval_determin_d72940a409085ef3ffac389675dfae046c769a42c16d6a6dd84f30bcb2a6e958",
       "scenario": "Approval Mode Degradation",
       "scenarioId": "approval_mode_bypass",
       "attackType": "delayed_replay",
@@ -2583,7 +2583,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_e_determin_46857e9a",
+      "benchmarkId": "bm_1.0.0_prompt_e_determin_4e2af8ac251cedfccb57e67c5352191d81e3ec47c54091110d01505af587a0ab",
       "scenario": "Multi-Line Prompt Escape",
       "scenarioId": "prompt_escape_multiline",
       "attackType": "single_turn",
@@ -2615,7 +2615,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_e_determin_46857e9a",
+      "benchmarkId": "bm_1.0.0_prompt_e_determin_4e2af8ac251cedfccb57e67c5352191d81e3ec47c54091110d01505af587a0ab",
       "scenario": "Multi-Line Prompt Escape",
       "scenarioId": "prompt_escape_multiline",
       "attackType": "multi_turn_persistence",
@@ -2647,7 +2647,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_e_determin_46857e9a",
+      "benchmarkId": "bm_1.0.0_prompt_e_determin_4e2af8ac251cedfccb57e67c5352191d81e3ec47c54091110d01505af587a0ab",
       "scenario": "Multi-Line Prompt Escape",
       "scenarioId": "prompt_escape_multiline",
       "attackType": "tool_result_injection",
@@ -2679,7 +2679,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_e_determin_46857e9a",
+      "benchmarkId": "bm_1.0.0_prompt_e_determin_4e2af8ac251cedfccb57e67c5352191d81e3ec47c54091110d01505af587a0ab",
       "scenario": "Multi-Line Prompt Escape",
       "scenarioId": "prompt_escape_multiline",
       "attackType": "context_poisoning",
@@ -2711,7 +2711,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_e_determin_46857e9a",
+      "benchmarkId": "bm_1.0.0_prompt_e_determin_4e2af8ac251cedfccb57e67c5352191d81e3ec47c54091110d01505af587a0ab",
       "scenario": "Multi-Line Prompt Escape",
       "scenarioId": "prompt_escape_multiline",
       "attackType": "recursive_override",
@@ -2743,7 +2743,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_prompt_e_determin_46857e9a",
+      "benchmarkId": "bm_1.0.0_prompt_e_determin_4e2af8ac251cedfccb57e67c5352191d81e3ec47c54091110d01505af587a0ab",
       "scenario": "Multi-Line Prompt Escape",
       "scenarioId": "prompt_escape_multiline",
       "attackType": "delayed_replay",
@@ -2775,7 +2775,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_280386a4",
+      "benchmarkId": "bm_1.0.0_context__determin_cefeeb0651f0151d15c403e44ede839c4865d0d768eac4d0bf926270150a11ec",
       "scenario": "Historical Message Fabrication",
       "scenarioId": "context_message_fabrication",
       "attackType": "single_turn",
@@ -2807,7 +2807,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_280386a4",
+      "benchmarkId": "bm_1.0.0_context__determin_cefeeb0651f0151d15c403e44ede839c4865d0d768eac4d0bf926270150a11ec",
       "scenario": "Historical Message Fabrication",
       "scenarioId": "context_message_fabrication",
       "attackType": "multi_turn_persistence",
@@ -2839,7 +2839,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_280386a4",
+      "benchmarkId": "bm_1.0.0_context__determin_cefeeb0651f0151d15c403e44ede839c4865d0d768eac4d0bf926270150a11ec",
       "scenario": "Historical Message Fabrication",
       "scenarioId": "context_message_fabrication",
       "attackType": "tool_result_injection",
@@ -2871,7 +2871,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_280386a4",
+      "benchmarkId": "bm_1.0.0_context__determin_cefeeb0651f0151d15c403e44ede839c4865d0d768eac4d0bf926270150a11ec",
       "scenario": "Historical Message Fabrication",
       "scenarioId": "context_message_fabrication",
       "attackType": "context_poisoning",
@@ -2903,7 +2903,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_280386a4",
+      "benchmarkId": "bm_1.0.0_context__determin_cefeeb0651f0151d15c403e44ede839c4865d0d768eac4d0bf926270150a11ec",
       "scenario": "Historical Message Fabrication",
       "scenarioId": "context_message_fabrication",
       "attackType": "recursive_override",
@@ -2935,7 +2935,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_context__determin_280386a4",
+      "benchmarkId": "bm_1.0.0_context__determin_cefeeb0651f0151d15c403e44ede839c4865d0d768eac4d0bf926270150a11ec",
       "scenario": "Historical Message Fabrication",
       "scenarioId": "context_message_fabrication",
       "attackType": "delayed_replay",
@@ -2967,7 +2967,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_spe_determin_09b38ea7",
+      "benchmarkId": "bm_1.0.0_tool_spe_determin_00995507d52b16d4194088dc304624f7ff1c49ca116ee9c552048855b1ad2fc4",
       "scenario": "Tool Specification Poisoning",
       "scenarioId": "tool_spec_poisoning",
       "attackType": "single_turn",
@@ -2999,7 +2999,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_spe_determin_09b38ea7",
+      "benchmarkId": "bm_1.0.0_tool_spe_determin_00995507d52b16d4194088dc304624f7ff1c49ca116ee9c552048855b1ad2fc4",
       "scenario": "Tool Specification Poisoning",
       "scenarioId": "tool_spec_poisoning",
       "attackType": "multi_turn_persistence",
@@ -3031,7 +3031,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_spe_determin_09b38ea7",
+      "benchmarkId": "bm_1.0.0_tool_spe_determin_00995507d52b16d4194088dc304624f7ff1c49ca116ee9c552048855b1ad2fc4",
       "scenario": "Tool Specification Poisoning",
       "scenarioId": "tool_spec_poisoning",
       "attackType": "tool_result_injection",
@@ -3063,7 +3063,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_spe_determin_09b38ea7",
+      "benchmarkId": "bm_1.0.0_tool_spe_determin_00995507d52b16d4194088dc304624f7ff1c49ca116ee9c552048855b1ad2fc4",
       "scenario": "Tool Specification Poisoning",
       "scenarioId": "tool_spec_poisoning",
       "attackType": "context_poisoning",
@@ -3095,7 +3095,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_spe_determin_09b38ea7",
+      "benchmarkId": "bm_1.0.0_tool_spe_determin_00995507d52b16d4194088dc304624f7ff1c49ca116ee9c552048855b1ad2fc4",
       "scenario": "Tool Specification Poisoning",
       "scenarioId": "tool_spec_poisoning",
       "attackType": "recursive_override",
@@ -3127,7 +3127,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_tool_spe_determin_09b38ea7",
+      "benchmarkId": "bm_1.0.0_tool_spe_determin_00995507d52b16d4194088dc304624f7ff1c49ca116ee9c552048855b1ad2fc4",
       "scenario": "Tool Specification Poisoning",
       "scenarioId": "tool_spec_poisoning",
       "attackType": "delayed_replay",
@@ -3159,7 +3159,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_transcri_determin_3622f040",
+      "benchmarkId": "bm_1.0.0_transcri_determin_8045b3fc8ebcc5a72dba02abce94af643a13d9e48c1716c3d128175da1037d77",
       "scenario": "Transcript Corruption Attack",
       "scenarioId": "transcript_corruption",
       "attackType": "single_turn",
@@ -3191,7 +3191,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_transcri_determin_3622f040",
+      "benchmarkId": "bm_1.0.0_transcri_determin_8045b3fc8ebcc5a72dba02abce94af643a13d9e48c1716c3d128175da1037d77",
       "scenario": "Transcript Corruption Attack",
       "scenarioId": "transcript_corruption",
       "attackType": "multi_turn_persistence",
@@ -3223,7 +3223,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_transcri_determin_3622f040",
+      "benchmarkId": "bm_1.0.0_transcri_determin_8045b3fc8ebcc5a72dba02abce94af643a13d9e48c1716c3d128175da1037d77",
       "scenario": "Transcript Corruption Attack",
       "scenarioId": "transcript_corruption",
       "attackType": "tool_result_injection",
@@ -3255,7 +3255,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_transcri_determin_3622f040",
+      "benchmarkId": "bm_1.0.0_transcri_determin_8045b3fc8ebcc5a72dba02abce94af643a13d9e48c1716c3d128175da1037d77",
       "scenario": "Transcript Corruption Attack",
       "scenarioId": "transcript_corruption",
       "attackType": "context_poisoning",
@@ -3287,7 +3287,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_transcri_determin_3622f040",
+      "benchmarkId": "bm_1.0.0_transcri_determin_8045b3fc8ebcc5a72dba02abce94af643a13d9e48c1716c3d128175da1037d77",
       "scenario": "Transcript Corruption Attack",
       "scenarioId": "transcript_corruption",
       "attackType": "recursive_override",
@@ -3319,7 +3319,7 @@
       "recommendations": []
     },
     {
-      "benchmarkId": "bm_1.0.0_transcri_determin_3622f040",
+      "benchmarkId": "bm_1.0.0_transcri_determin_8045b3fc8ebcc5a72dba02abce94af643a13d9e48c1716c3d128175da1037d77",
       "scenario": "Transcript Corruption Attack",
       "scenarioId": "transcript_corruption",
       "attackType": "delayed_replay",

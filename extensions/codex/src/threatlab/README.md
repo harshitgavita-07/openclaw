@@ -378,7 +378,7 @@ Top Threat Vectors (by effectiveness):
 }
 ```
 
-#### regression-analysis.json (if --compare)
+#### regression-analysis.json (if compare mode is used)
 ```json
 {
   "comparisonId": "comp_1715405520000",
@@ -403,7 +403,7 @@ Outputs to `./threatlab-output/`.
 
 ### Compare Against Baseline
 ```bash
-pnpm threatlab:run --compare ./threatlab-output/report.json
+pnpm threatlab:run compare ./threatlab-output/report.json
 ```
 
 Detects regressions and generates comparison report.
@@ -474,7 +474,7 @@ $ pnpm threatlab:run
 # Make code changes...
 
 # Check for regressions
-$ pnpm threatlab:run --compare threatlab-output/report.json
+$ pnpm threatlab:run compare threatlab-output/report.json
 
 # Output:
 # Overall Trend: degrading

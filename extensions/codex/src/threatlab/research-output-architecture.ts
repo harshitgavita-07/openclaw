@@ -7,7 +7,19 @@
  */
 
 import type { CrossLayerAttackScenario } from "./multi-layer-attack-scenarios.js";
-import type { IntegrityDegradationReport, ObservabilityMetrics, PropagationAnalysis } from "./telemetry-engine.js";
+import type {
+  IntegrityDegradationReport,
+  ObservabilityMetrics,
+  PropagationAnalysis,
+} from "./telemetry-engine.js";
+
+const RESEARCH_GENERATED_AT = 1_700_000_000_000;
+const RUNTIME_LAYER_COUNT = 10;
+const THREAT_CLASS_COUNT = 17;
+const TOTAL_THREAT_SURFACE_COUNT = RUNTIME_LAYER_COUNT * THREAT_CLASS_COUNT;
+const RECOMMENDED_DEFENSE_COUNT = 42;
+const ESCALATION_PROBABILITY_BASE = 0.6;
+const ESCALATION_PROBABILITY_RANGE = 0.3;
 
 // ============================================================================
 // RESEARCH OUTPUT TYPES
@@ -16,7 +28,7 @@ import type { IntegrityDegradationReport, ObservabilityMetrics, PropagationAnaly
 export interface RuntimeThreatMatrix {
   generatedAt: number;
   runtimeVersion: string;
-  
+
   // 10 layers × 17 threat classes = 170 entries
   threatSurfaces: Array<{
     layer: string;
@@ -28,7 +40,7 @@ export interface RuntimeThreatMatrix {
     currentDetectionCapability: number; // 0-1
     mitigationCost: "low" | "medium" | "high" | "very_high";
   }>;
-  
+
   // Summary statistics
   summary: {
     totalThreatSurfaces: number;
@@ -41,7 +53,7 @@ export interface RuntimeThreatMatrix {
 
 export interface TrustPropagationMap {
   generatedAt: number;
-  
+
   // Trust flow through architecture
   trustChains: Array<{
     source: string; // "system" | "developer" | "user" | "external"
@@ -50,7 +62,7 @@ export interface TrustPropagationMap {
     finalTrustLevel: number;
     breakingPoints: string[]; // Where trust can be broken
   }>;
-  
+
   // Inverse: how compromise propagates
   compromisePropagation: Array<{
     compromisedLayer: string;
@@ -58,7 +70,7 @@ export interface TrustPropagationMap {
     amplificationFactor: number;
     timeToFullCompromise: "immediate" | "single_turn" | "multi_turn" | "delayed";
   }>;
-  
+
   // Critical trust junctions
   trustJunctions: Array<{
     location: string;
@@ -71,7 +83,7 @@ export interface TrustPropagationMap {
 
 export interface CrossLayerEscalationGraph {
   generatedAt: number;
-  
+
   // All possible escalation paths
   escalationPaths: Array<{
     pathId: string;
@@ -83,7 +95,7 @@ export interface CrossLayerEscalationGraph {
     probability: number; // Based on propagation matrix
     severity: "low" | "medium" | "high" | "critical";
   }>;
-  
+
   // Critical escalation chokepoints
   chokepoints: Array<{
     layer: string;
@@ -91,7 +103,7 @@ export interface CrossLayerEscalationGraph {
     controlsAccessTo: string[];
     defenseRecommendation: string;
   }>;
-  
+
   // Fastest escalation paths (by layer count)
   shortestPaths: Array<{
     fromLayer: string;
@@ -99,7 +111,7 @@ export interface CrossLayerEscalationGraph {
     pathLength: number;
     path: string[];
   }>;
-  
+
   // Highest amplification paths
   highestAmplificationPaths: Array<{
     path: string[];
@@ -111,13 +123,13 @@ export interface CrossLayerEscalationGraph {
 export interface IntegrityBenchmarkReport {
   generatedAt: number;
   runtimeVersion: string;
-  
+
   // Overall integrity summary
   baselineIntegrity: {
     uncompromised: number; // 1.0
     measuredDate: number;
   };
-  
+
   // Integrity under different attack classes
   integrityUnderAttack: Array<{
     threatClass: string;
@@ -127,7 +139,7 @@ export interface IntegrityBenchmarkReport {
     affectedLayers: string[];
     recoveryTime: "immediate" | "single_turn" | "multi_turn" | "manual_intervention";
   }>;
-  
+
   // Layer-by-layer integrity
   layerIntegrity: Array<{
     layer: string;
@@ -137,7 +149,7 @@ export interface IntegrityBenchmarkReport {
     bestCaseIntegrity: number;
     averageIntegrity: number;
   }>;
-  
+
   // Attack effectiveness ranking
   mostEffectiveAttacks: Array<{
     scenarioId: string;
@@ -146,7 +158,7 @@ export interface IntegrityBenchmarkReport {
     layersAffected: number;
     exploitability: number;
   }>;
-  
+
   // Integrity degradation patterns
   degradationPatterns: Array<{
     pattern: string; // e.g., "exponential_multi_turn"
@@ -159,18 +171,18 @@ export interface IntegrityBenchmarkReport {
 export interface LayerThreatTaxonomy {
   layerId: string;
   layerName: string;
-  
+
   threats: Array<{
     threatId: string;
     threatName: string;
     category: string;
     description: string;
-    
+
     // Attack surface
     injectionPoints: string[];
     exploitableAssumptions: string[];
     requiredPreconditions: string[];
-    
+
     // Propagation
     canPropagateTo: Array<{
       targetLayer: string;
@@ -178,20 +190,20 @@ export interface LayerThreatTaxonomy {
       probability: number;
       amplificationFactor: number;
     }>;
-    
+
     // Persistence
     persistenceVectors: Array<{
       vector: string;
       duration: "single_turn" | "cross_turn" | "cross_session";
       survivability: number;
     }>;
-    
+
     // Detection & Mitigation
     detectionSignatures: string[];
     mitigationStrategies: string[];
     currentDetectionCapability: number;
   }>;
-  
+
   // Layer-specific integrity metrics
   integrityMetrics: {
     baselineScore: number;
@@ -199,7 +211,7 @@ export interface LayerThreatTaxonomy {
     exploitationResistance: number; // 0-1
     recoveryCapability: number; // 0-1
   };
-  
+
   // Dependencies & interactions
   dependencies: Array<{
     dependentLayer: string;
@@ -210,7 +222,7 @@ export interface LayerThreatTaxonomy {
 
 export interface EventReplayVulnerabilityMap {
   generatedAt: number;
-  
+
   // Replay vulnerabilities by event type
   eventTypes: Array<{
     eventType: string;
@@ -220,7 +232,7 @@ export interface EventReplayVulnerabilityMap {
     affectedOperations: string[];
     mitigationApproach: string;
   }>;
-  
+
   // Timeline anomalies that could hide replays
   timelineAnomalies: Array<{
     anomalyType: string;
@@ -228,7 +240,7 @@ export interface EventReplayVulnerabilityMap {
     exploitationWindow: string;
     detectionDifficulty: "trivial" | "easy" | "moderate" | "difficult";
   }>;
-  
+
   // Causality enforcement recommendations
   causalityEnforcement: Array<{
     checkType: string;
@@ -240,17 +252,17 @@ export interface EventReplayVulnerabilityMap {
 
 export interface ToolTrustDependencyGraph {
   generatedAt: number;
-  
+
   // Tool trust relationships
   tools: Array<{
     toolId: string;
     toolName: string;
     trustLevel: "system" | "developer" | "user" | "external";
-    
+
     // What affects this tool's trustworthiness
     dependsOnTrustOf: string[]; // Other tools
     affectedByLayers: string[]; // Runtime layers
-    
+
     // Risk if tool trust is broken
     consequences: {
       directImpact: string;
@@ -258,7 +270,7 @@ export interface ToolTrustDependencyGraph {
       maximumDamage: string;
     };
   }>;
-  
+
   // Trust dependency chains
   chains: Array<{
     chainId: string;
@@ -267,7 +279,7 @@ export interface ToolTrustDependencyGraph {
     amplificationFactor: number;
     breakingPoint: string;
   }>;
-  
+
   // Trust validation gaps
   validationGaps: Array<{
     gap: string;
@@ -279,7 +291,7 @@ export interface ToolTrustDependencyGraph {
 
 export interface MemoryPoisoningLifecycleModel {
   generatedAt: number;
-  
+
   // Lifecycle stages of memory poisoning
   stages: Array<{
     stageName: string;
@@ -289,7 +301,7 @@ export interface MemoryPoisoningLifecycleModel {
     detectabilityScore: number;
     impactScore: number;
   }>;
-  
+
   // Injection timing vectors
   injectionTimingVectors: Array<{
     timingType: string;
@@ -298,7 +310,7 @@ export interface MemoryPoisoningLifecycleModel {
     activationTrigger: string;
     exploitability: number;
   }>;
-  
+
   // Memory reuse patterns that enable poisoning
   reusePatterns: Array<{
     pattern: string;
@@ -306,7 +318,7 @@ export interface MemoryPoisoningLifecycleModel {
     poisoningRisk: number;
     mitigation: string;
   }>;
-  
+
   // Cross-session persistence
   crossSessionPersistence: Array<{
     storageLocation: string;
@@ -318,7 +330,7 @@ export interface MemoryPoisoningLifecycleModel {
 
 export interface MultiAgentContaminationGraph {
   generatedAt: number;
-  
+
   // Agent contamination patterns
   contaminationPatterns: Array<{
     patternId: string;
@@ -328,7 +340,7 @@ export interface MultiAgentContaminationGraph {
     contagiousness: number; // 0-1
     recoveryDifficulty: "easy" | "moderate" | "difficult" | "impossible";
   }>;
-  
+
   // Agent isolation failures
   isolationFailures: Array<{
     failureType: string;
@@ -337,7 +349,7 @@ export interface MultiAgentContaminationGraph {
     contamination_vector: string;
     impactScope: "single_interaction" | "multi_interaction" | "global";
   }>;
-  
+
   // Delegation trust breakdowns
   delegationBreakdowns: Array<{
     breakdownType: string;
@@ -346,7 +358,7 @@ export interface MultiAgentContaminationGraph {
     trustViolation: string;
     consequences: string;
   }>;
-  
+
   // Mitigation through agent quarantine
   quarantineStrategies: Array<{
     strategy: string;
@@ -358,12 +370,12 @@ export interface MultiAgentContaminationGraph {
 
 export interface RuntimeObservabilityArchitecture {
   generatedAt: number;
-  
+
   // Instrumentation strategy
   instrumentationStrategy: {
     instrumentedLayers: string[];
     coveragePercentage: number;
-    
+
     // Telemetry points by layer
     telemetryPoints: Array<{
       layer: string;
@@ -372,7 +384,7 @@ export interface RuntimeObservabilityArchitecture {
       collectionCost: "none" | "minimal" | "moderate" | "high";
       valueScoredForDetection: number; // 0-1
     }>;
-    
+
     // Critical monitoring locations
     criticalMonitoringLocations: Array<{
       location: string;
@@ -381,7 +393,7 @@ export interface RuntimeObservabilityArchitecture {
       priority: "critical" | "high" | "medium" | "low";
     }>;
   };
-  
+
   // Observability dashboards
   dashboards: Array<{
     dashboardName: string;
@@ -390,7 +402,7 @@ export interface RuntimeObservabilityArchitecture {
     refreshRate: string;
     alertThresholds: Record<string, number>;
   }>;
-  
+
   // Anomaly detection rules
   anomalyDetectionRules: Array<{
     ruleId: string;
@@ -400,7 +412,7 @@ export interface RuntimeObservabilityArchitecture {
     falseNegativeRate: number;
     mitigationAction: string;
   }>;
-  
+
   // Data collection & retention
   dataManagement: {
     eventsPerSecond: number;
@@ -422,7 +434,7 @@ export interface ResearchPackage {
     researchPhase: 6; // Phase 6 outputs
     analysisWindowDays: number;
   };
-  
+
   deliverables: {
     runtimeThreatMatrix: RuntimeThreatMatrix;
     trustPropagationMap: TrustPropagationMap;
@@ -435,7 +447,7 @@ export interface ResearchPackage {
     multiAgentContaminationGraph: MultiAgentContaminationGraph;
     runtimeObservabilityArchitecture: RuntimeObservabilityArchitecture;
   };
-  
+
   summary: {
     totalThreatSurfaces: number;
     criticalVulnerabilities: number;
@@ -443,7 +455,7 @@ export interface ResearchPackage {
     recommendedDefenseCount: number;
     estimatedImplementationEffort: string;
   };
-  
+
   recommendations: {
     immediate: string[];
     shortTerm: string[];
@@ -462,8 +474,8 @@ export function generateResearchPackage(params: {
   integrityReports: IntegrityDegradationReport[];
   observabilityMetrics: ObservabilityMetrics;
 }): ResearchPackage {
-  const now = Date.now();
-  
+  const now = RESEARCH_GENERATED_AT;
+
   return {
     metadata: {
       generatedAt: now,
@@ -471,28 +483,36 @@ export function generateResearchPackage(params: {
       researchPhase: 6,
       analysisWindowDays: 1,
     },
-    
+
     deliverables: {
       runtimeThreatMatrix: generateRuntimeThreatMatrix(params.runtimeVersion),
       trustPropagationMap: generateTrustPropagationMap(),
       crossLayerEscalationGraph: generateCrossLayerEscalationGraph(params.scenarios),
-      integrityBenchmarkReport: generateIntegrityBenchmarkReport(params.integrityReports, params.runtimeVersion),
+      integrityBenchmarkReport: generateIntegrityBenchmarkReport(
+        params.integrityReports,
+        params.runtimeVersion,
+      ),
       layerThreatTaxonomy: generateLayerThreatTaxonomies(),
       eventReplayVulnerabilityMap: generateEventReplayVulnerabilityMap(),
       toolTrustDependencyGraph: generateToolTrustDependencyGraph(),
       memoryPoisoningLifecycleModel: generateMemoryPoisoningLifecycleModel(),
       multiAgentContaminationGraph: generateMultiAgentContaminationGraph(),
-      runtimeObservabilityArchitecture: generateRuntimeObservabilityArchitecture(params.observabilityMetrics),
+      runtimeObservabilityArchitecture: generateRuntimeObservabilityArchitecture(
+        params.observabilityMetrics,
+      ),
     },
-    
+
     summary: {
-      totalThreatSurfaces: 10 * 17, // 10 layers × 17 threat classes
-      criticalVulnerabilities: params.scenarios.filter(s => s.severity === "critical").length,
-      observabilityGaps: Math.max(0, 10 - params.observabilityMetrics.instrumentedLayerCount),
-      recommendedDefenseCount: 42,
+      totalThreatSurfaces: TOTAL_THREAT_SURFACE_COUNT,
+      criticalVulnerabilities: params.scenarios.filter((s) => s.severity === "critical").length,
+      observabilityGaps: Math.max(
+        0,
+        RUNTIME_LAYER_COUNT - params.observabilityMetrics.instrumentedLayerCount,
+      ),
+      recommendedDefenseCount: RECOMMENDED_DEFENSE_COUNT,
       estimatedImplementationEffort: "12-18 months, 5-8 FTE",
     },
-    
+
     recommendations: {
       immediate: [
         "Implement prompt watermarking to detect injection",
@@ -501,7 +521,7 @@ export function generateResearchPackage(params: {
         "Enable event causality verification",
         "Implement tool result cryptographic validation",
       ],
-      
+
       shortTerm: [
         "Develop anomaly detection for cross-turn memory pollution",
         "Implement policy enforcement at gateway layer",
@@ -509,7 +529,7 @@ export function generateResearchPackage(params: {
         "Deploy MCP server verification system",
         "Enable plugin capability sandboxing",
       ],
-      
+
       longTerm: [
         "Build comprehensive observability fabric",
         "Develop machine learning anomaly detection",
@@ -517,7 +537,7 @@ export function generateResearchPackage(params: {
         "Build real-time integrity scoring system",
         "Develop automated threat response system",
       ],
-      
+
       research: [
         "Study amplification factors in multi-turn attacks",
         "Research recursive override detection methods",
@@ -535,7 +555,7 @@ export function generateResearchPackage(params: {
 
 function generateRuntimeThreatMatrix(version: string): RuntimeThreatMatrix {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     runtimeVersion: version,
     threatSurfaces: [], // Populated from RUNTIME_SURFACE_TAXONOMY
     summary: {
@@ -555,16 +575,18 @@ function generateRuntimeThreatMatrix(version: string): RuntimeThreatMatrix {
 
 function generateTrustPropagationMap(): TrustPropagationMap {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     trustChains: [],
     compromisePropagation: [],
     trustJunctions: [],
   };
 }
 
-function generateCrossLayerEscalationGraph(scenarios: CrossLayerAttackScenario[]): CrossLayerEscalationGraph {
+function generateCrossLayerEscalationGraph(
+  scenarios: CrossLayerAttackScenario[],
+): CrossLayerEscalationGraph {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     escalationPaths: scenarios.map((s, i) => ({
       pathId: `escalation_${i}`,
       startingPoint: s.injectionLayers[0],
@@ -572,7 +594,7 @@ function generateCrossLayerEscalationGraph(scenarios: CrossLayerAttackScenario[]
       layers: s.expectedPropagationPath,
       lengthSteps: s.expectedPropagationPath.length,
       amplification: s.expectedAmplification,
-      probability: 0.6 + Math.random() * 0.3,
+      probability: deterministicEscalationProbability(s.id, i),
       severity: s.severity,
     })),
     chokepoints: [],
@@ -581,13 +603,25 @@ function generateCrossLayerEscalationGraph(scenarios: CrossLayerAttackScenario[]
   };
 }
 
-function generateIntegrityBenchmarkReport(reports: IntegrityDegradationReport[], version: string): IntegrityBenchmarkReport {
+function deterministicEscalationProbability(scenarioId: string, index: number): number {
+  let checksum = index + 1;
+  for (const char of scenarioId) {
+    checksum = (checksum * 31 + char.charCodeAt(0)) % 1000;
+  }
+  const normalized = checksum / 1000;
+  return ESCALATION_PROBABILITY_BASE + normalized * ESCALATION_PROBABILITY_RANGE;
+}
+
+function generateIntegrityBenchmarkReport(
+  reports: IntegrityDegradationReport[],
+  version: string,
+): IntegrityBenchmarkReport {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     runtimeVersion: version,
     baselineIntegrity: {
       uncompromised: 1.0,
-      measuredDate: Date.now(),
+      measuredDate: RESEARCH_GENERATED_AT,
     },
     integrityUnderAttack: [],
     layerIntegrity: [],
@@ -616,7 +650,7 @@ function generateLayerThreatTaxonomies(): LayerThreatTaxonomy[] {
 
 function generateEventReplayVulnerabilityMap(): EventReplayVulnerabilityMap {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     eventTypes: [],
     timelineAnomalies: [],
     causalityEnforcement: [],
@@ -625,7 +659,7 @@ function generateEventReplayVulnerabilityMap(): EventReplayVulnerabilityMap {
 
 function generateToolTrustDependencyGraph(): ToolTrustDependencyGraph {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     tools: [],
     chains: [],
     validationGaps: [],
@@ -634,7 +668,7 @@ function generateToolTrustDependencyGraph(): ToolTrustDependencyGraph {
 
 function generateMemoryPoisoningLifecycleModel(): MemoryPoisoningLifecycleModel {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     stages: [],
     injectionTimingVectors: [],
     reusePatterns: [],
@@ -644,7 +678,7 @@ function generateMemoryPoisoningLifecycleModel(): MemoryPoisoningLifecycleModel 
 
 function generateMultiAgentContaminationGraph(): MultiAgentContaminationGraph {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     contaminationPatterns: [],
     isolationFailures: [],
     delegationBreakdowns: [],
@@ -652,9 +686,11 @@ function generateMultiAgentContaminationGraph(): MultiAgentContaminationGraph {
   };
 }
 
-function generateRuntimeObservabilityArchitecture(metrics: ObservabilityMetrics): RuntimeObservabilityArchitecture {
+function generateRuntimeObservabilityArchitecture(
+  metrics: ObservabilityMetrics,
+): RuntimeObservabilityArchitecture {
   return {
-    generatedAt: Date.now(),
+    generatedAt: RESEARCH_GENERATED_AT,
     instrumentationStrategy: {
       instrumentedLayers: [],
       coveragePercentage: metrics.coveragePercentage,

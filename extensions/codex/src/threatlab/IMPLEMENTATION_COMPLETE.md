@@ -121,7 +121,7 @@ bm_{version}_{scenarioId}_{checksum}
 pnpm threatlab:run
 
 # Run with baseline comparison
-pnpm threatlab:compare <baseline-report-path>
+pnpm threatlab:run compare <baseline-report-path>
 ```
 
 **Terminal Output:**
@@ -220,7 +220,7 @@ Artifacts written to: ./threatlab-output/
 
 ### Run with Regression Detection
 ```bash
-pnpm threatlab:compare ./threatlab-output/report.json
+pnpm threatlab:run compare ./threatlab-output/report.json
 ```
 
 **Output:**
@@ -291,7 +291,7 @@ ThreatLab signals can feed into SafeClaw for preventive actions:
 Add to pre-release validation:
 ```bash
 pnpm threatlab:run
-pnpm threatlab:compare baseline-report.json || exit 1
+pnpm threatlab:run compare baseline-report.json || exit 1
 ```
 
 ### For Local Development
@@ -303,7 +303,7 @@ mv threatlab-output/report.json baseline.json
 
 # After changes
 pnpm threatlab:run
-pnpm threatlab:compare baseline.json
+pnpm threatlab:run compare baseline.json
 ```
 
 ## Files & Structure
@@ -334,7 +334,7 @@ extensions/codex/src/threatlab/
 1. ✅ Run: `pnpm threatlab:run`
 2. ✅ Verify output in `./threatlab-output/`
 3. ✅ Create baseline: `mv threatlab-output/report.json baseline.json`
-4. ✅ Compare: `pnpm threatlab:run && pnpm threatlab:compare baseline.json`
+4. ✅ Compare: `pnpm threatlab:run && pnpm threatlab:run compare baseline.json`
 
 ### Short-term (Integration)
 1. Add to pre-release validation pipeline
@@ -355,7 +355,7 @@ extensions/codex/src/threatlab/
 | CLI Entry Point | ✅ Complete | run/compare commands registered |
 | Report Generation | ✅ Complete | JSON artifacts with formatting |
 | Regression Detection | ✅ Complete | Configurable thresholds |
-| npm Scripts | ✅ Registered | threatlab:run, threatlab:compare |
+| npm Scripts | ✅ Registered | threatlab:run and compare mode |
 | Module Exports | ✅ Created | Central barrel in index.ts |
 | Documentation | ✅ Complete | Architecture + usage guide |
 | Local Execution | ⏳ Pending | First run not yet attempted |

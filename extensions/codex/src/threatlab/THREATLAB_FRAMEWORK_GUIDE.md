@@ -676,7 +676,7 @@ pnpm threatlab:run
 
 ### 3. Generate research outputs
 ```bash
-DEBUG_THREATLAB=1 pnpm threatlab:run --output-research-package
+DEBUG_THREATLAB=1 pnpm threatlab:run
 ```
 
 ### 4. View threat taxonomy

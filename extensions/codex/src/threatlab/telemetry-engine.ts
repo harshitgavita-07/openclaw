@@ -42,41 +42,41 @@ export interface TelemetryEvent {
   threadId: string;
   turnId: string;
   sessionId: string;
-  
+
   // Layer Context
   layer: LayerIdentifier;
   eventType: TelemetryEventType;
   sourceFile: string;
   sourceFunction: string;
-  
+
   // Execution Context
   operationId: string;
   parentOperationId?: string;
-  
+
   // Trust Context
   trustLevel: "system" | "developer" | "user" | "external" | "sub_agent";
   trustScore: number; // 0.0 - 1.0
-  
+
   // State Context
   stateBefore: Record<string, unknown>;
   stateAfter: Record<string, unknown>;
   mutationSource?: string;
-  
+
   // Propagation Context
   propagationDepth: number;
   propagationPath: string[]; // Layer trail
   recursionDepth: number;
-  
+
   // Attack Detection Context
   suspiciousPattern?: string;
   injectionMarkerDetected?: boolean;
   markerType?: string;
-  
+
   // Integrity Context
   integrityDrift?: number; // 0.0 - 1.0, how much did integrity degrade
   expectedBehavior?: string;
   actualBehavior?: string;
-  
+
   // Metadata
   metadata: Record<string, unknown>;
 }
@@ -84,21 +84,21 @@ export interface TelemetryEvent {
 export interface LayerTelemetrySnapshot {
   layer: LayerIdentifier;
   timestamp: number;
-  
+
   // Structural state
   currentState: Record<string, unknown>;
   expectedState: Record<string, unknown>;
-  
+
   // Integrity metrics
   integrityScore: number;
   anomalyScore: number;
   trustPropagationScore: number;
-  
+
   // Counts
   eventCount: number;
   mutationCount: number;
   anomalyDetectionCount: number;
-  
+
   // Lists
   suspiciousPatterns: string[];
   detectedMarkers: Array<{ marker: string; confidence: number }>;
@@ -109,7 +109,7 @@ export interface ExecutionTrace {
   turnId: string;
   threadId: string;
   sessionId: string;
-  
+
   // Layer traversal order
   layerTraversal: Array<{
     layer: LayerIdentifier;
@@ -118,7 +118,7 @@ export interface ExecutionTrace {
     integrityAtEntry: number;
     integrityAtExit: number;
   }>;
-  
+
   // Tool execution
   toolCalls: Array<{
     callId: string;
@@ -130,7 +130,7 @@ export interface ExecutionTrace {
     resultTrustLevel: "authentic" | "unverified" | "injected";
     timestamp: number;
   }>;
-  
+
   // Prompt states at key moments
   promptSnapshots: Array<{
     stage: "before_build" | "during_assembly" | "before_llm" | "final";
@@ -139,7 +139,7 @@ export interface ExecutionTrace {
     injectionMarkersDetected: string[];
     timestamp: number;
   }>;
-  
+
   // Context snapshots
   contextSnapshots: Array<{
     stage: "initial_load" | "augmented" | "truncated" | "final";
@@ -148,7 +148,7 @@ export interface ExecutionTrace {
     poisonedMessagesDetected: number;
     timestamp: number;
   }>;
-  
+
   // Hook execution
   hookExecutions: Array<{
     hookName: string;
@@ -157,7 +157,7 @@ export interface ExecutionTrace {
     unexplainedChanges: Record<string, unknown>;
     timestamp: number;
   }>;
-  
+
   // Event processing
   eventProcessing: Array<{
     eventId: string;
@@ -167,7 +167,7 @@ export interface ExecutionTrace {
     replayDetected: boolean;
     timestamp: number;
   }>;
-  
+
   // Timing
   timestamps: {
     turnStart: number;
@@ -192,7 +192,7 @@ export interface PropagationAnalysis {
     location: string;
     timestamp: number;
   };
-  
+
   // Track where attack propagates
   propagationChain: Array<{
     layer: LayerIdentifier;
@@ -201,7 +201,7 @@ export interface PropagationAnalysis {
     integrityImpact: number;
     timestamp: number;
   }>;
-  
+
   // Persistence vectors discovered
   persistenceVectors: Array<{
     from: LayerIdentifier;
@@ -210,14 +210,14 @@ export interface PropagationAnalysis {
     persistence: "single_turn" | "cross_turn" | "cross_session" | "multi_agent";
     severity: number; // 0.0 - 1.0
   }>;
-  
+
   // Escalation paths
   escalationPaths: Array<{
     path: LayerIdentifier[];
     amplificationFactor: number;
     finalIntegrity: number;
   }>;
-  
+
   // Cross-layer interactions
   crossLayerInteractions: Array<{
     sourceLayer: LayerIdentifier;
@@ -231,15 +231,18 @@ export interface PropagationAnalysis {
 export interface IntegrityDegradationReport {
   attackScenarioId: string;
   attackType: string;
-  
+
   // Integrity measurements
-  integrityByLayer: Record<LayerIdentifier, {
-    baseline: number;
-    afterAttack: number;
-    degradation: number;
-    anomalyScore: number;
-  }>;
-  
+  integrityByLayer: Record<
+    LayerIdentifier,
+    {
+      baseline: number;
+      afterAttack: number;
+      degradation: number;
+      anomalyScore: number;
+    }
+  >;
+
   // Degradation timeline
   integrityTimeline: Array<{
     timestamp: number;
@@ -247,14 +250,14 @@ export interface IntegrityDegradationReport {
     integrityScore: number;
     event: string;
   }>;
-  
+
   // Worst-affected layers
   worstAffectedLayers: Array<{
     layer: LayerIdentifier;
     integrityLoss: number;
     confidence: number;
   }>;
-  
+
   // Cascade effects
   cascadeDetected: boolean;
   cascadeAmplification: number;
@@ -265,40 +268,40 @@ export interface ObservabilityMetrics {
   sessionId: string;
   startTime: number;
   endTime: number;
-  
+
   // Global integrity
   globalIntegrityScore: number;
   globalAnomalyScore: number;
   globalTrustPropagationScore: number;
-  
+
   // Layer coverage
   instrumentedLayerCount: number;
   totalLayerCount: number;
   coveragePercentage: number;
-  
+
   // Event collection
   totalEventsCollected: number;
   eventsPerLayer: Record<LayerIdentifier, number>;
-  
+
   // Anomaly detection
   totalAnomaliesDetected: number;
   anomaliesByLayer: Record<LayerIdentifier, number>;
   anomaliesByType: Record<string, number>;
-  
+
   // Propagation analysis
   propagationChainsDetected: number;
   averageChainLength: number;
   maxChainLength: number;
-  
+
   // Integrity drift
   integrityDriftDetected: boolean;
   integrityDriftPercentage: number;
   integrityDriftByLayer: Record<LayerIdentifier, number>;
-  
+
   // Trust verification
   trustBreachesDetected: number;
   unverifiedTrustClaims: number;
-  
+
   // Determinism
   deterministicExecution: boolean;
   executionVariance: number;
@@ -313,7 +316,7 @@ export class RuntimeTelemetryCollector {
   private layerSnapshots: Map<LayerIdentifier, LayerTelemetrySnapshot> = new Map();
   private propagationAnalyses: PropagationAnalysis[] = [];
   private integrityReports: IntegrityDegradationReport[] = [];
-  
+
   private sessionId: string;
   private threadId: string;
   private turnId: string;
@@ -330,7 +333,18 @@ export class RuntimeTelemetryCollector {
   /**
    * Record a telemetry event at a specific layer
    */
-  recordEvent(event: Omit<TelemetryEvent, 'timestamp' | 'sessionId' | 'threadId' | 'turnId' | 'propagationDepth' | 'propagationPath' | 'recursionDepth'>): void {
+  recordEvent(
+    event: Omit<
+      TelemetryEvent,
+      | "timestamp"
+      | "sessionId"
+      | "threadId"
+      | "turnId"
+      | "propagationDepth"
+      | "propagationPath"
+      | "recursionDepth"
+    >,
+  ): void {
     const fullEvent: TelemetryEvent = {
       ...event,
       timestamp: Date.now(),
@@ -356,7 +370,10 @@ export class RuntimeTelemetryCollector {
   /**
    * Record layer state snapshot
    */
-  snapshotLayer(layer: LayerIdentifier, snapshot: Omit<LayerTelemetrySnapshot, 'layer' | 'timestamp'>): void {
+  snapshotLayer(
+    layer: LayerIdentifier,
+    snapshot: Omit<LayerTelemetrySnapshot, "layer" | "timestamp">,
+  ): void {
     this.layerSnapshots.set(layer, {
       ...snapshot,
       layer,
@@ -427,9 +444,16 @@ export class RuntimeTelemetryCollector {
 
     // Initialize counts
     const layers: LayerIdentifier[] = [
-      "prompt_layer", "context_layer", "tool_layer", "event_stream_layer",
-      "hook_system_layer", "memory_layer", "multi_agent_layer", "mcp_layer",
-      "plugin_layer", "gateway_layer"
+      "prompt_layer",
+      "context_layer",
+      "tool_layer",
+      "event_stream_layer",
+      "hook_system_layer",
+      "memory_layer",
+      "multi_agent_layer",
+      "mcp_layer",
+      "plugin_layer",
+      "gateway_layer",
     ];
 
     for (const layer of layers) {
@@ -448,7 +472,10 @@ export class RuntimeTelemetryCollector {
 
     // Compute integrity degradation
     const integrityByLayer: Record<LayerIdentifier, number> = {} as Record<LayerIdentifier, number>;
-    const integrityDriftByLayer: Record<LayerIdentifier, number> = {} as Record<LayerIdentifier, number>;
+    const integrityDriftByLayer: Record<LayerIdentifier, number> = {} as Record<
+      LayerIdentifier,
+      number
+    >;
     let totalIntegrity = 0;
     let layerCount = 0;
 
@@ -460,9 +487,10 @@ export class RuntimeTelemetryCollector {
     }
 
     const globalIntegrityScore = layerCount > 0 ? totalIntegrity / layerCount : 1.0;
-    const averageDrift = layerCount > 0 
-      ? Object.values(integrityDriftByLayer).reduce((a, b) => a + b, 0) / layerCount 
-      : 0;
+    const averageDrift =
+      layerCount > 0
+        ? Object.values(integrityDriftByLayer).reduce((a, b) => a + b, 0) / layerCount
+        : 0;
 
     return {
       sessionId: this.sessionId,
@@ -470,7 +498,7 @@ export class RuntimeTelemetryCollector {
       endTime,
       globalIntegrityScore,
       globalAnomalyScore: Math.min(1.0, this.propagationAnalyses.length / 100),
-      globalTrustPropagationScore: Math.max(0, 1.0 - (this.integrityReports.length / 50)),
+      globalTrustPropagationScore: Math.max(0, 1.0 - this.integrityReports.length / 50),
       instrumentedLayerCount: this.layerSnapshots.size,
       totalLayerCount: layers.length,
       coveragePercentage: (this.layerSnapshots.size / layers.length) * 100,
@@ -480,21 +508,34 @@ export class RuntimeTelemetryCollector {
       anomaliesByLayer,
       anomaliesByType,
       propagationChainsDetected: this.propagationAnalyses.length,
-      averageChainLength: this.propagationAnalyses.length > 0
-        ? this.propagationAnalyses.reduce((sum, p) => sum + p.propagationChain.length, 0) / this.propagationAnalyses.length
-        : 0,
-      maxChainLength: this.propagationAnalyses.length > 0
-        ? Math.max(...this.propagationAnalyses.map(p => p.propagationChain.length))
-        : 0,
+      averageChainLength:
+        this.propagationAnalyses.length > 0
+          ? this.propagationAnalyses.reduce((sum, p) => sum + p.propagationChain.length, 0) /
+            this.propagationAnalyses.length
+          : 0,
+      maxChainLength: this.propagationAnalyses.reduce(
+        (max, analysis) => Math.max(max, analysis.propagationChain.length),
+        0,
+      ),
       integrityDriftDetected: averageDrift > 0.1,
       integrityDriftPercentage: averageDrift * 100,
       integrityDriftByLayer,
       trustBreachesDetected: this.integrityReports.length,
-      unverifiedTrustClaims: this.events.filter(e => e.trustLevel === "external" || e.trustLevel === "sub_agent").length,
-      deterministicExecution: this.events.every(e => e.timestamp % 1 === 0), // Simplified check
+      unverifiedTrustClaims: this.events.filter(
+        (e) => e.trustLevel === "external" || e.trustLevel === "sub_agent",
+      ).length,
+      deterministicExecution: hasStableEventTimeline(this.events),
       executionVariance: 0.0,
     };
   }
+}
+
+function hasStableEventTimeline(events: TelemetryEvent[]): boolean {
+  return events.every(
+    (event, index) =>
+      Number.isFinite(event.timestamp) &&
+      (index === 0 || event.timestamp >= events[index - 1].timestamp),
+  );
 }
 
 // ============================================================================
@@ -502,12 +543,16 @@ export class RuntimeTelemetryCollector {
 // ============================================================================
 
 export function serializeTelemetry(collector: RuntimeTelemetryCollector): string {
-  return JSON.stringify({
-    events: collector.getEvents(),
-    layerSnapshots: Array.from(collector.getLayerSnapshots().entries()),
-    propagationAnalyses: collector.getPropagationAnalyses(),
-    integrityReports: collector.getIntegrityReports(),
-  }, null, 2);
+  return JSON.stringify(
+    {
+      events: collector.getEvents(),
+      layerSnapshots: Array.from(collector.getLayerSnapshots().entries()),
+      propagationAnalyses: collector.getPropagationAnalyses(),
+      integrityReports: collector.getIntegrityReports(),
+    },
+    null,
+    2,
+  );
 }
 
 export function analyzeAnomalies(events: TelemetryEvent[]): Array<{
@@ -516,7 +561,10 @@ export function analyzeAnomalies(events: TelemetryEvent[]): Array<{
   layers: LayerIdentifier[];
   severity: number;
 }> {
-  const anomalyMap = new Map<string, { count: number; layers: Set<LayerIdentifier>; severities: number[] }>();
+  const anomalyMap = new Map<
+    string,
+    { count: number; layers: Set<LayerIdentifier>; severities: number[] }
+  >();
 
   for (const event of events) {
     if (event.eventType === "anomaly_detection" && event.suspiciousPattern) {
@@ -547,19 +595,40 @@ export function detectPropagationChains(events: TelemetryEvent[]): Array<{
   severity: number;
   amplification: number;
 }> {
-  const chains: Array<{ chainId: string; layers: LayerIdentifier[]; severity: number; amplification: number }> = [];
+  const chains: Array<{
+    chainId: string;
+    layers: LayerIdentifier[];
+    severity: number;
+    amplification: number;
+  }> = [];
 
   // Detect events with propagation paths
   for (const event of events) {
-    if (event.propagationPath.length > 1 && event.integrityDrift && event.integrityDrift > 0.1) {
+    const layers = event.propagationPath.filter(isLayerIdentifier);
+    if (layers.length > 1 && event.integrityDrift && event.integrityDrift > 0.1) {
       chains.push({
         chainId: `chain_${event.timestamp}_${event.operationId}`,
-        layers: event.propagationPath,
+        layers,
         severity: event.integrityDrift,
-        amplification: event.propagationDepth / Math.max(1, event.propagationPath.length),
+        amplification: event.propagationDepth / Math.max(1, layers.length),
       });
     }
   }
 
   return chains;
+}
+
+function isLayerIdentifier(value: string): value is LayerIdentifier {
+  return [
+    "prompt_layer",
+    "context_layer",
+    "tool_layer",
+    "event_stream_layer",
+    "hook_system_layer",
+    "memory_layer",
+    "multi_agent_layer",
+    "mcp_layer",
+    "plugin_layer",
+    "gateway_layer",
+  ].includes(value);
 }

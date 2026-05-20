@@ -85,14 +85,26 @@ export function createThreatTelemetryRecorder(params?: { now?: () => number }): 
 }
 
 export function detectThreatSignals(event: ThreatTelemetryEvent): ThreatRiskSignal[] {
-  const haystack = collectEventText(event).toLowerCase();
+  const eventText = collectEventText(event).toLowerCase();
+  const promptText = collectText([
+    event.prompt,
+    event.developerInstructions,
+    event.messages,
+  ]).toLowerCase();
+  const toolText = collectText([
+    event.toolName,
+    event.toolArgs,
+    event.toolResultText,
+  ]).toLowerCase();
+  const outputText = collectText([event.assistantOutput, event.completionStatus]).toLowerCase();
+  const metadataText = collectText([event.metadata]).toLowerCase();
   const signals = new Set<ThreatRiskSignal>();
-  if (matchesAny(haystack, ["ignore previous", "ignore all previous", "override system"])) {
+  if (matchesAny(promptText, ["ignore previous", "ignore all previous", "override system"])) {
     signals.add("promptHierarchyViolation");
     signals.add("instructionConfusion");
   }
   if (
-    matchesAny(haystack, [
+    matchesAny(promptText, [
       "developer instruction",
       "developer message",
       "new developer",
@@ -104,12 +116,12 @@ export function detectThreatSignals(event: ThreatTelemetryEvent): ThreatRiskSign
   }
   if (
     event.stage === "before_tool_call" &&
-    matchesAny(haystack, ["approval", "sandbox", "escalat", "destructive", "shell", "secret"])
+    matchesAny(toolText, ["approval", "sandbox", "escalat", "destructive", "shell", "secret"])
   ) {
     signals.add("unsafeToolExecution");
   }
   if (
-    matchesAny(haystack, [
+    matchesAny(eventText, [
       "print the conversation",
       "reveal context",
       "dump memory",
@@ -119,19 +131,19 @@ export function detectThreatSignals(event: ThreatTelemetryEvent): ThreatRiskSign
   ) {
     signals.add("contextLeakage");
   }
-  if (matchesAny(haystack, ["call yourself", "spawn loop", "recursive", "repeat until"])) {
+  if (matchesAny(eventText, ["call yourself", "spawn loop", "recursive", "repeat until"])) {
     signals.add("recursiveEscalation");
   }
   if (
     event.stage === "dynamic_tool_result" &&
-    matchesAny(haystack, ["ignore previous", "<system", "```system", "developer instruction"])
+    matchesAny(toolText, ["ignore previous", "<system", "```system", "developer instruction"])
   ) {
     signals.add("maliciousOutputPropagation");
   }
-  if (matchesAny(haystack, ["role: system", "<system", "</system>", "assistant to=functions"])) {
+  if (matchesAny(eventText, ["role: system", "<system", "</system>", "assistant to=functions"])) {
     signals.add("instructionConfusion");
   }
-  if (matchesAny(haystack, ["remember this permanently", "write to memory", "poison memory"])) {
+  if (matchesAny(metadataText, ["remember this permanently", "write to memory", "poison memory"])) {
     signals.add("memoryPoisoningSuccess");
   }
   return [...signals];
@@ -219,15 +231,20 @@ function countSignal(observations: ThreatObservation[], signal: ThreatRiskSignal
 }
 
 function collectEventText(event: ThreatTelemetryEvent): string {
-  return [
+  return collectText([
     event.prompt,
     event.developerInstructions,
     event.toolResultText,
     event.assistantOutput,
-    stringify(event.messages),
-    stringify(event.toolArgs),
-    stringify(event.metadata),
-  ]
+    event.messages,
+    event.toolArgs,
+    event.metadata,
+  ]);
+}
+
+function collectText(values: unknown[]): string {
+  return values
+    .map((value) => stringify(value))
     .filter((text): text is string => Boolean(text))
     .join("\n");
 }

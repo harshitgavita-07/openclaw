@@ -123,15 +123,19 @@ export interface TelemetryEvent {
 - `report-writer.ts`: Direct `writeFileSync(JSON.stringify(...))`
 
 **Risks**:
-1. **No schema validation on deserialization** - `deserializeBenchmarkReport()` accepts arbitrary JSON
-2. **Unsafe type casting** - Assumes all nested fields exist
+1. **Runtime shape validation is intentionally lightweight** - `deserializeBenchmarkReport()` verifies the top-level report contract before returning typed data
+2. **Nested schema validation is still limited** - Deep benchmark artifacts are not fully schema-checked
 3. **Large object dos** - No size limits on loaded reports
 4. **No checksum validation** - Reports may be corrupted during write
 
 **Code Pattern**:
 ```typescript
 function deserializeBenchmarkReport(json: string): BenchmarkReport {
-  return JSON.parse(json) as BenchmarkReport;  // Unsafe!
+  const value: unknown = JSON.parse(json);
+  if (!isBenchmarkReport(value)) {
+    throw new Error("Invalid benchmark report JSON");
+  }
+  return value;
 }
 ```
 

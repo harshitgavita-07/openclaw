@@ -10,14 +10,15 @@
  * All comparison logic is deterministic and reproducible.
  */
 
-import type {
-  BenchmarkReport,
-  BenchmarkComparison,
-} from "./runtime-attack-orchestrator.js";
-import {
-  compareBenchmarkRuns,
-  detectIntegrityRegression,
-} from "./runtime-attack-orchestrator.js";
+import type { BenchmarkReport, BenchmarkComparison } from "./runtime-attack-orchestrator.js";
+import { compareBenchmarkRuns, detectIntegrityRegression } from "./runtime-attack-orchestrator.js";
+
+const TREND_SHIFT_THRESHOLD = 0.05;
+const DEFAULT_REGRESSION_THRESHOLDS = {
+  criticalThreshold: 0.3,
+  moderateThreshold: 0.2,
+  minorThreshold: 0.1,
+};
 
 // ============================================================================
 // BENCHMARK COMPARISON WITH REPORT GENERATION
@@ -33,7 +34,7 @@ export function compareBenchmarkRunsWithReport(
   const comparison = compareBenchmarkRuns(baseline, current);
 
   const summary: ComparisonSummary = {
-    comparisonId: `cmp_${Date.now()}`,
+    comparisonId: comparison.comparisonId,
     baselineId: baseline.reportId,
     currentId: current.reportId,
     baselineTimestamp: baseline.generatedAt,
@@ -46,20 +47,18 @@ export function compareBenchmarkRunsWithReport(
       baselineAverage: baseline.summary.averageIntegrityScore,
       currentAverage: current.summary.averageIntegrityScore,
       change: current.summary.averageIntegrityScore - baseline.summary.averageIntegrityScore,
-      percentChange: (
-        ((current.summary.averageIntegrityScore - baseline.summary.averageIntegrityScore) /
-          baseline.summary.averageIntegrityScore) *
-        100
-      ).toFixed(2) + "%",
+      percentChange:
+        (
+          ((current.summary.averageIntegrityScore - baseline.summary.averageIntegrityScore) /
+            baseline.summary.averageIntegrityScore) *
+          100
+        ).toFixed(2) + "%",
     },
     regressionAnalysis: {
       totalRegressions: comparison.regressions.length,
-      criticalRegressions: comparison.regressions.filter((r) => r.severity === "critical")
-        .length,
-      moderateRegressions: comparison.regressions.filter((r) => r.severity === "moderate")
-        .length,
-      minorRegressions: comparison.regressions.filter((r) => r.severity === "minor")
-        .length,
+      criticalRegressions: comparison.regressions.filter((r) => r.severity === "critical").length,
+      moderateRegressions: comparison.regressions.filter((r) => r.severity === "moderate").length,
+      minorRegressions: comparison.regressions.filter((r) => r.severity === "minor").length,
       scenariosAffected: comparison.regressions
         .map((r) => r.scenario)
         .filter((v, i, a) => a.indexOf(v) === i).length,
@@ -75,8 +74,9 @@ export function compareBenchmarkRunsWithReport(
           : "0",
       bestImprovement:
         comparison.improvements.length > 0
-          ? comparison.improvements.reduce((best, i) => (i.improvement > best.improvement ? i : best))
-              .scenario
+          ? comparison.improvements.reduce((best, i) =>
+              i.improvement > best.improvement ? i : best,
+            ).scenario
           : "none",
     },
     layerVulnerabilityShift: analyzeLayerVulnerabilityShift(baseline, current),
@@ -121,25 +121,17 @@ export function detectRegressions(
     minorThreshold: number; // Score loss >= this (e.g., 0.1)
   },
 ): RegressionReport {
-  const thresholds = config || {
-    criticalThreshold: 0.3,
-    moderateThreshold: 0.2,
-    minorThreshold: 0.1,
-  };
+  const thresholds = config || DEFAULT_REGRESSION_THRESHOLDS;
 
   const regressions = {
-    critical: comparison.regressions.filter(
-      (r) => r.regression >= thresholds.criticalThreshold,
-    ),
+    critical: comparison.regressions.filter((r) => r.regression >= thresholds.criticalThreshold),
     moderate: comparison.regressions.filter(
       (r) =>
-        r.regression >= thresholds.moderateThreshold &&
-        r.regression < thresholds.criticalThreshold,
+        r.regression >= thresholds.moderateThreshold && r.regression < thresholds.criticalThreshold,
     ),
     minor: comparison.regressions.filter(
       (r) =>
-        r.regression >= thresholds.minorThreshold &&
-        r.regression < thresholds.moderateThreshold,
+        r.regression >= thresholds.minorThreshold && r.regression < thresholds.moderateThreshold,
     ),
   };
 
@@ -205,19 +197,16 @@ function analyzeLayerVulnerabilityShift(
   const baselineFreq = baseline.summary.compromisedLayerFrequency;
   const currentFreq = current.summary.compromisedLayerFrequency;
 
-  const allLayers = new Set([
-    ...Object.keys(baselineFreq),
-    ...Object.keys(currentFreq),
-  ]);
+  const allLayers = new Set([...Object.keys(baselineFreq), ...Object.keys(currentFreq)]);
 
   // Explicitly type the shift objects to match LayerVulnerabilityShift.allLayers type
-   const shifts: Array<{
-     layer: string;
-     baselineAffectedPercentage: string;
-     currentAffectedPercentage: string;
-     trend: "worsening" | "improving" | "stable";
-     change: string;
-   }> = Array.from(allLayers)
+  const shifts: Array<{
+    layer: string;
+    baselineAffectedPercentage: string;
+    currentAffectedPercentage: string;
+    trend: "worsening" | "improving" | "stable";
+    change: string;
+  }> = Array.from(allLayers)
     .map((layer) => {
       const baseBench = baseline.completedScenarios;
       const currBench = current.completedScenarios;
@@ -226,16 +215,21 @@ function analyzeLayerVulnerabilityShift(
       const currentAffected = (currentFreq[layer] || 0) / Math.max(currBench, 1);
       const shift = currentAffected - baselineAffected;
 
-       const trend = shift > 0.05 ? "worsening" : shift < -0.05 ? "improving" : "stable";
-       // Cast to the explicit union type expected by LayerVulnerabilityShift
-       const typedTrend = trend as "worsening" | "improving" | "stable";
-       return {
-         layer,
-         baselineAffectedPercentage: (baselineAffected * 100).toFixed(1) + "%",
-         currentAffectedPercentage: (currentAffected * 100).toFixed(1) + "%",
-         trend: typedTrend,
-         change: (shift * 100).toFixed(1) + "%",
-       };
+      const trend =
+        shift > TREND_SHIFT_THRESHOLD
+          ? "worsening"
+          : shift < -TREND_SHIFT_THRESHOLD
+            ? "improving"
+            : "stable";
+      // Cast to the explicit union type expected by LayerVulnerabilityShift
+      const typedTrend = trend as "worsening" | "improving" | "stable";
+      return {
+        layer,
+        baselineAffectedPercentage: (baselineAffected * 100).toFixed(1) + "%",
+        currentAffectedPercentage: (currentAffected * 100).toFixed(1) + "%",
+        trend: typedTrend,
+        change: (shift * 100).toFixed(1) + "%",
+      };
     })
     .sort((a, b) => {
       const aTrend = a.trend === "worsening" ? -1 : a.trend === "improving" ? 1 : 0;
@@ -270,9 +264,7 @@ function getOverallSeverity(
 // TREND ANALYSIS
 // ============================================================================
 
-export function analyzeTrendAcrossRuns(
-  reports: BenchmarkReport[],
-): TrendAnalysis {
+export function analyzeTrendAcrossRuns(reports: BenchmarkReport[]): TrendAnalysis {
   if (reports.length < 2) {
     throw new Error("At least 2 reports required for trend analysis");
   }
@@ -296,14 +288,17 @@ export function analyzeTrendAcrossRuns(
   const xMean = xValues.reduce((a, b) => a + b, 0) / n;
   const yMean = yValues.reduce((a, b) => a + b, 0) / n;
 
-  const numerator = xValues.reduce(
-    (sum, x, i) => sum + (x - xMean) * (yValues[i] - yMean),
-    0,
-  );
+  const numerator = xValues.reduce((sum, x, i) => sum + (x - xMean) * (yValues[i] - yMean), 0);
   const denominator = xValues.reduce((sum, x) => sum + Math.pow(x - xMean, 2), 0);
 
   const slope = denominator !== 0 ? numerator / denominator : 0;
-  const trend = slope > 0.05 ? "improving" : slope < -0.05 ? "degrading" : "stable";
+  const trend =
+    slope > TREND_SHIFT_THRESHOLD
+      ? "improving"
+      : slope < -TREND_SHIFT_THRESHOLD
+        ? "degrading"
+        : "stable";
+  const scoreRange = getRange(yValues);
 
   return {
     reportCount: n,
@@ -313,22 +308,27 @@ export function analyzeTrendAcrossRuns(
     lastScore: yValues[n - 1],
     averageScore: parseFloat((yValues.reduce((a, b) => a + b, 0) / n).toFixed(4)),
     totalScoreChange: (yValues[n - 1] - yValues[0]).toFixed(4),
-    percentageChange: (
-      ((yValues[n - 1] - yValues[0]) / yValues[0]) *
-      100
-    ).toFixed(2) + "%",
-    worstScore: Math.min(...yValues),
-    bestScore: Math.max(...yValues),
+    percentageChange: (((yValues[n - 1] - yValues[0]) / yValues[0]) * 100).toFixed(2) + "%",
+    worstScore: scoreRange.min,
+    bestScore: scoreRange.max,
   };
+}
+
+function getRange(values: number[]): { min: number; max: number } {
+  let min = values[0];
+  let max = values[0];
+  for (const value of values.slice(1)) {
+    if (value < min) min = value;
+    if (value > max) max = value;
+  }
+  return { min, max };
 }
 
 // ============================================================================
 // REGRESSION MITIGATION RECOMMENDATIONS
 // ============================================================================
 
-export function generateMitigationPlan(
-  regressionReport: RegressionReport,
-): MitigationPlan {
+export function generateMitigationPlan(regressionReport: RegressionReport): MitigationPlan {
   const actions: MitigationAction[] = [];
 
   // Critical regressions

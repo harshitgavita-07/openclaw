@@ -81,15 +81,16 @@ if (!baseline || typeof baseline !== "object") {
 **Before:**
 ```typescript
 const toolExecutionDuration = toolTimings.length >= 2
-  ? Math.max(...toolTimings) - Math.min(...toolTimings)
+  ? getRange(toolTimings).max - getRange(toolTimings).min
   : 0;
 ```
 
 **After:**
 ```typescript
 try {
-  const toolExecutionDuration = toolTimings.length >= 2
-    ? Math.max(...toolTimings) - Math.min(...toolTimings)
+  const toolRange = getRange(toolTimings);
+  const toolExecutionDuration = toolRange
+    ? toolRange.max - toolRange.min
     : 0;
   
   return {
@@ -145,7 +146,8 @@ pnpm threatlab:run
 ### 2. Regression Detection
 ```bash
 # First establish a baseline
-pnpm threatlab:run > threatlab-output/baseline.json
+pnpm threatlab:run
+Copy-Item threatlab-output/report.json threatlab-output/baseline.json
 
 # Then compare against current code
 pnpm threatlab:run compare threatlab-output/baseline.json
