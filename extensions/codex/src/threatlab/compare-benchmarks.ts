@@ -129,15 +129,15 @@ export function detectRegressions(
 
   const regressions = {
     critical: comparison.regressions.filter(
-      (r: any) => r.regression >= thresholds.criticalThreshold,
+      (r) => r.regression >= thresholds.criticalThreshold,
     ),
     moderate: comparison.regressions.filter(
-      (r: any) =>
+      (r) =>
         r.regression >= thresholds.moderateThreshold &&
         r.regression < thresholds.criticalThreshold,
     ),
     minor: comparison.regressions.filter(
-      (r: any) =>
+      (r) =>
         r.regression >= thresholds.minorThreshold &&
         r.regression < thresholds.moderateThreshold,
     ),
@@ -153,19 +153,19 @@ export function detectRegressions(
     hasRegression: comparison.regressions.length > 0,
     overallSeverity,
     regression: {
-      critical: regressions.critical.map((r: any) => ({
+      critical: regressions.critical.map((r) => ({
         scenario: r.scenario,
         regression: (r.regression * 100).toFixed(2) + "%",
         before: (r.baselineScore * 100).toFixed(2),
         after: (r.currentScore * 100).toFixed(2),
       })),
-      moderate: regressions.moderate.map((r: any) => ({
+      moderate: regressions.moderate.map((r) => ({
         scenario: r.scenario,
         regression: (r.regression * 100).toFixed(2) + "%",
         before: (r.baselineScore * 100).toFixed(2),
         after: (r.currentScore * 100).toFixed(2),
       })),
-      minor: regressions.minor.map((r: any) => ({
+      minor: regressions.minor.map((r) => ({
         scenario: r.scenario,
         regression: (r.regression * 100).toFixed(2) + "%",
         before: (r.baselineScore * 100).toFixed(2),
