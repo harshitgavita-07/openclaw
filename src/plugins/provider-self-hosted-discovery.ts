@@ -116,9 +116,9 @@ async function fetchSelfHostedDiscoveryJson(params: {
       if (params.allowPrivateNetwork !== true || !(error instanceof SsrFBlockedError)) {
         throw error;
       }
-      // Explicit operator opt-in (same as the inference transport) for hosts that resolve to
+      // Same private-network flag as the inference transport (on unless disabled) for hosts that resolve to
       // link-local addresses, e.g. Podman's host gateway. Only reached after the exact-origin
-      // policy rejected the target, and redirects are not followed so the opt-in cannot widen
+      // policy rejected the target, and redirects are not followed so the flag cannot widen
       // to another destination.
       guarded = await fetchWithSsrFGuard({
         ...guardParams,
