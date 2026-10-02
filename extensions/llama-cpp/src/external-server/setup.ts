@@ -244,6 +244,7 @@ async function discoverForSetup(
       baseUrl: provider?.baseUrl ?? LLAMA_SERVER_DEFAULT_ORIGIN,
       apiKey,
       headers,
+      allowPrivateNetwork: provider?.request?.allowPrivateNetwork,
       signal: ctx.signal,
       cacheTtlMs: 0,
     });
