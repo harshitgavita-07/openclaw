@@ -71,7 +71,7 @@ describe("llama-server discovery projection", () => {
         ],
       });
       expect(discoverRowsMock).toHaveBeenCalledWith({
-        allowPrivateNetwork: true,
+        allowPrivateNetwork: false,
         baseUrl: "http://localhost:8080/v1",
         serverBaseUrl: "http://localhost:8080",
         apiKey: undefined,
@@ -180,7 +180,7 @@ describe("llama-server discovery projection", () => {
     );
   });
   it.each([
-    { name: "defaults to allowed", input: undefined, expected: true },
+    { name: "is absent", input: undefined, expected: false },
     { name: "keeps explicit opt-in", input: true, expected: true },
     { name: "honors explicit opt-out", input: false, expected: false },
   ])("passes allowPrivateNetwork to shared discovery when $name", async ({ input, expected }) => {
