@@ -37,7 +37,7 @@ export async function discoverLlamaServer(params: {
   baseUrl?: string;
   apiKey?: string;
   headers?: Record<string, string>;
-  /** Mirrors provider.request.allowPrivateNetwork; defaults on like the inference transport. */
+  /** Mirrors an explicit provider.request.allowPrivateNetwork: true; absent or false keeps discovery strict. */
   allowPrivateNetwork?: boolean;
   timeoutMs?: number;
   cacheTtlMs?: number;
@@ -45,7 +45,7 @@ export async function discoverLlamaServer(params: {
 }): Promise<LlamaServerDiscoveryResult> {
   const endpoint = resolveLlamaServerEndpoint(params.baseUrl);
   const apiKey = params.apiKey?.trim();
-  const allowPrivateNetwork = params.allowPrivateNetwork !== false;
+  const allowPrivateNetwork = params.allowPrivateNetwork === true;
   const hasCredentialScope =
     Boolean(apiKey && !isNonSecretApiKeyMarker(apiKey)) ||
     Boolean(params.headers && Object.keys(params.headers).length > 0);
