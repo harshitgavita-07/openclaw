@@ -474,3 +474,35 @@ describe("discoverOpenAICompatibleLocalModels context metadata", () => {
     });
   });
 });
+
+describe("discoverOpenAICompatibleLocalModels private-network opt-in", () => {
+  it("trusts only the configured origin by default", async () => {
+    fetchWithSsrFGuardMock.mockResolvedValueOnce(guarded(new Response(null, { status: 404 })));
+    await discoverOpenAICompatibleLocalModels({
+      baseUrl: "http://host.containers.internal:8081/v1",
+      serverBaseUrl: "http://host.containers.internal:8081",
+      label: "llama-server",
+      healthPath: "/health",
+      rawResult: true,
+    });
+    expect(fetchWithSsrFGuardMock.mock.calls[0]?.[0].policy).toEqual({
+      allowedOrigins: ["http://host.containers.internal:8081"],
+    });
+  });
+
+  it("forwards an explicit allowPrivateNetwork opt-in to the SSRF policy", async () => {
+    fetchWithSsrFGuardMock.mockResolvedValueOnce(guarded(new Response(null, { status: 404 })));
+    await discoverOpenAICompatibleLocalModels({
+      baseUrl: "http://host.containers.internal:8081/v1",
+      serverBaseUrl: "http://host.containers.internal:8081",
+      allowPrivateNetwork: true,
+      label: "llama-server",
+      healthPath: "/health",
+      rawResult: true,
+    });
+    expect(fetchWithSsrFGuardMock.mock.calls[0]?.[0].policy).toEqual({
+      allowedOrigins: ["http://host.containers.internal:8081"],
+      allowPrivateNetwork: true,
+    });
+  });
+});
