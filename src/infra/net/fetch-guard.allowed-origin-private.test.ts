@@ -1,3 +1,5 @@
+import { createServer, type Server } from "node:http";
+import type { AddressInfo } from "node:net";
 import { describe, expect, it, vi } from "vitest";
 import { fetchWithSsrFGuard } from "./fetch-guard.js";
 import { ssrfPolicyFromHttpBaseUrlAllowedOrigin } from "./ssrf.js";
@@ -56,5 +58,40 @@ describe("fetchWithSsrFGuard exact-origin policy with allowPrivateNetwork", () =
       }),
     ).rejects.toThrow(/redirect/i);
     expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
+
+  it("sends no request to a redirect destination over real HTTP when redirects are disabled", async () => {
+    let targetHits = 0;
+    const target = createServer((_req, res) => {
+      targetHits += 1;
+      res.end("{}");
+    });
+    const listen = (server: Server) =>
+      new Promise<number>((resolve) =>
+        server.listen(0, "127.0.0.1", () => resolve((server.address() as AddressInfo).port)),
+      );
+    const targetPort = await listen(target);
+    const source = createServer((_req, res) => {
+      res.writeHead(302, { location: `http://127.0.0.1:${targetPort}/latest` });
+      res.end();
+    });
+    const sourcePort = await listen(source);
+    const sourceOrigin = `http://127.0.0.1:${sourcePort}`;
+    try {
+      await expect(
+        fetchWithSsrFGuard({
+          url: `${sourceOrigin}/health`,
+          maxRedirects: 0,
+          policy: {
+            ...ssrfPolicyFromHttpBaseUrlAllowedOrigin(sourceOrigin),
+            allowPrivateNetwork: true,
+          },
+        }),
+      ).rejects.toThrow(/redirect/i);
+      expect(targetHits).toBe(0);
+    } finally {
+      source.close();
+      target.close();
+    }
   });
 });
