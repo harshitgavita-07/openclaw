@@ -10,7 +10,7 @@ import {
 import type { ModelDefinitionConfig } from "../config/types.models.js";
 import { cancelUnreadResponseBody } from "../infra/http-body.js";
 import { fetchWithSsrFGuard } from "../infra/net/fetch-guard.js";
-import { ssrfPolicyFromHttpBaseUrlAllowedOrigin } from "../infra/net/ssrf.js";
+import { ssrfPolicyFromHttpBaseUrlAllowedOrigin, type SsrFPolicy } from "../infra/net/ssrf.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import { runTasksWithConcurrency } from "../utils/run-with-concurrency.js";
 
@@ -88,12 +88,25 @@ function buildSelfHostedDiscoveryHeaders(params: {
   return Object.keys(headers).length > 0 ? headers : undefined;
 }
 
+function buildSelfHostedDiscoveryPolicy(params: {
+  origin: string;
+  allowPrivateNetwork?: boolean;
+}): SsrFPolicy | undefined {
+  const policy = ssrfPolicyFromHttpBaseUrlAllowedOrigin(params.origin);
+  // Explicit operator opt-in, same as the inference transport: lets the configured
+  // host resolve to link-local addresses such as Podman's host gateway.
+  return policy && params.allowPrivateNetwork === true
+    ? { ...policy, allowPrivateNetwork: true }
+    : policy;
+}
+
 async function fetchSelfHostedDiscoveryJson(params: {
   url: string;
   origin: string;
   apiKey?: string;
   headers?: Record<string, string>;
   acceptJson?: boolean;
+  allowPrivateNetwork?: boolean;
   timeoutMs: number;
   signal?: AbortSignal;
   readBody: boolean;
@@ -104,7 +117,7 @@ async function fetchSelfHostedDiscoveryJson(params: {
     guarded = await fetchWithSsrFGuard({
       url: params.url,
       init: { headers: buildSelfHostedDiscoveryHeaders(params) },
-      policy: ssrfPolicyFromHttpBaseUrlAllowedOrigin(params.origin),
+      policy: buildSelfHostedDiscoveryPolicy(params),
       timeoutMs: params.timeoutMs,
       signal: params.signal,
       auditContext: "self-hosted-provider-discovery",
@@ -288,6 +301,7 @@ async function discoverOpenAICompatibleModelRows(
 
 type OpenAICompatibleLocalModelsParams = {
   baseUrl: string;
+  allowPrivateNetwork?: boolean;
   serverBaseUrl?: string;
   apiKey?: string;
   headers?: Record<string, string>;
