@@ -376,6 +376,7 @@ export async function runLlamaServerSetup(ctx: ProviderAuthContext): Promise<Pro
     baseUrl: endpoint.inferenceBaseUrl,
     apiKey,
     headers,
+    allowPrivateNetwork: existing?.request?.allowPrivateNetwork,
     signal: ctx.signal,
     cacheTtlMs: 0,
   });
@@ -450,7 +451,13 @@ async function validateNonInteractiveDiscovery(
   } else {
     persistence = { kind: "remove" };
   }
-  const discovery = await discoverLlamaServer({ baseUrl, apiKey, headers, cacheTtlMs: 0 });
+  const discovery = await discoverLlamaServer({
+    baseUrl,
+    apiKey,
+    headers,
+    allowPrivateNetwork: configuredProvider?.request?.allowPrivateNetwork,
+    cacheTtlMs: 0,
+  });
   if (discovery.kind !== "success") {
     ctx.runtime.error(describeDiscoveryFailure(discovery));
     ctx.runtime.exit(1);
