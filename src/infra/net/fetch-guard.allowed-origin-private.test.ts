@@ -67,9 +67,9 @@ describe("fetchWithSsrFGuard exact-origin policy with allowPrivateNetwork", () =
       res.end("{}");
     });
     const listen = (server: Server) =>
-      new Promise<number>((resolve) =>
-        server.listen(0, "127.0.0.1", () => resolve((server.address() as AddressInfo).port)),
-      );
+      new Promise<number>((resolve) => {
+        server.listen(0, "127.0.0.1", () => resolve((server.address() as AddressInfo).port));
+      });
     const targetPort = await listen(target);
     const source = createServer((_req, res) => {
       res.writeHead(302, { location: `http://127.0.0.1:${targetPort}/latest` });
